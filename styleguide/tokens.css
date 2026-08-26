@@ -1,0 +1,155 @@
+/* =============================================================================
+   HOPit — TOKENY
+   Jedyne miejsce z wartościami systemu. ŹRÓDŁO PRAWDY dla całego projektu.
+
+   Źródło: pomiar własnego prototypu, http://localhost:8865/03 - Design/index.html
+   Warstwa dowodowa: POMIARY.md (26 kolorów, 26 stopni pisma, 46 odstępów)
+   Wersja: 1.0 · 2026-08-27
+
+   ZASADA NADRZĘDNA TEGO PROJEKTU (decyzja Grzegorza, 2026-08-27):
+   wzorcem jest STRONA GŁÓWNA. Podstrony nie mają własnego języka wizualnego,
+   tylko powtarzają ten. Jeśli coś na podstronie wygląda inaczej niż na home,
+   to jest błąd podstrony, nie nowy wariant.
+
+   ZASADY OGÓLNE:
+   1. Nazwa po ROLI, nie po wyglądzie. `--cta` przeżyje rebranding, `--pomaranczowy` nie.
+   2. Każdy token mówi, GDZIE występuje. Bez tego zdania po miesiącu jest nieusuwalny.
+   3. Nie każda wartość jest tokenem. Użyta raz zostaje w komponencie.
+   4. Strona ładuje TEN plik i nie ma własnej kopii wartości.
+   ============================================================================= */
+
+:root{
+
+  /* ==========================================================================
+     1. KOLOR — płaszczyzny
+     Na home rzeczy rozdziela PŁASZCZYZNA i cień, nie ramka. Podstrony robią
+     tak samo. Ramka jest wyjątkiem, nie domyślnym sposobem oddzielenia.
+     ========================================================================== */
+  --tlo:            #F2EFE6;  /* domyślne tło strony, tło karty na ciemnym */
+  --tlo-2:          #EAE6D8;  /* sekcja wyróżniona (zespół), kafel pod zdjęciem w karcie */
+  --tlo-karta:      #FFFFFF;  /* karta na jasnym tle: listing, formularz, filtry */
+  --tlo-ciemne:     #26241F;  /* stopka, pas okruszków, taśma */
+  --tlo-nori:       #1F3A2D;  /* sekcje zielone: polecane, B2B, pas nagłówkowy */
+  --tlo-nori-2:     #2A4636;  /* hover przycisku na zielonym, drugi plan sekcji */
+
+  /* ==========================================================================
+     2. KOLOR — marka i akcja
+     UWAGA: brandowy pomarańcz #E2673A ma 2,93:1 na kremie i 3,37:1 pod białym
+     pismem. Jako PŁASZCZYZNA dekoracyjna jest w porządku, jako PISMO i jako
+     tło przycisku z białym napisem nie przechodzi. Stąd cztery tokeny zamiast
+     jednego. Liczby w POMIARY.md, próg AA to 4,5:1 poniżej 24 px.
+     ========================================================================== */
+  --marka:          #E2673A;  /* płaszczyzny dekoracyjne: podkreślenie w logo, marker, plakietka */
+  --cta:            #B84A22;  /* tło przycisku akcji — biały napis daje 5,2:1 */
+  --cta-hover:      #9C3D19;  /* hover przycisku akcji */
+  --cta-tekst:      #A8421C;  /* akcent jako PISMO na jasnym: kicker, cena, numer (5,28:1) */
+  --cta-tekst-cd:   #F08A5E;  /* akcent jako PISMO na ciemnym: kicker na zielonym (5,0:1) */
+
+  /* ==========================================================================
+     3. KOLOR — pismo
+     ========================================================================== */
+  --tekst:          #26241F;  /* treść akapitów na jasnym */
+  --tekst-mocny:    #1F3A2D;  /* nagłówki na jasnym */
+  --tekst-cichy:    #63604F;  /* podpisy, metadane, opisy pól (5,51:1 na kremie) */
+  --tekst-cd:       #F2EFE6;  /* pismo na ciemnym tle */
+  --tekst-cichy-cd: #B7B3A6;  /* podpisy na ciemnym tle (7,39:1 na grafitowym) */
+
+  /* ==========================================================================
+     4. KOLOR — linie i obrysy
+     Trzy role, nie jedna. Dotychczasowy `2px solid grafit` obsługiwał wszystkie
+     trzy naraz i dlatego listing sklepu miał dwanaście kart o tej samej wadze
+     wizualnej co nagłówek strony.
+     ========================================================================== */
+  --linia:          #DDD8C8;  /* włos wewnątrz karty, wiersz tabeli, pole formularza */
+  --linia-mocna:    #26241F;  /* GRANICA SEKCJI, pas na całą szerokość — tylko to */
+  --pierscien:      #26241F;  /* obrys okrągłej miniatury i stanu wybranego (box-shadow) */
+
+  /* ==========================================================================
+     5. TYPOGRAFIA
+     ========================================================================== */
+  --f-display:      "Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-mono:         "Space Mono",ui-monospace,Menlo,monospace;
+
+  /* Skala pisma. Pomiar zastał 26 stopni, czytelna skala ma 5–7.
+     Stopnie plakatowe (hero, tytuł sekcji) zostają w komponencie, bo skalują
+     się przez vw i nie są wartością stałą. */
+  --fs-nano:        11.5px;   /* etykieta mono, kicker, chip, stopka karty */
+  --fs-mikro:       12.5px;   /* okruszki, metadane, dane kontaktowe */
+  --fs-tekst:       15px;     /* akapit, pole formularza */
+  --fs-tytul-mini:  19px;     /* nazwa w karcie osoby, nagłówek pola */
+  --fs-tytul:       24px;     /* nazwa produktu w karcie, h3 */
+  --fs-tytul-duzy:  46px;     /* h2 na podstronie */
+
+  --lh-ciasna:      1.05;     /* nagłówki plakatowe */
+  --lh-tekst:       1.6;      /* akapity */
+  --ls-mono:        .14em;    /* rozstrzelenie pisma mono w wersalikach */
+
+  /* ==========================================================================
+     6. RYTM — odstępy
+     Skala co 4 px z gęstszym dołem. Pomiar zastał 46 wartości, te osiem
+     pokrywa wszystkie realne przypadki na stronie.
+     ========================================================================== */
+  --od-1:           4px;
+  --od-2:           8px;
+  --od-3:           12px;
+  --od-4:           16px;
+  --od-5:           24px;
+  --od-6:           32px;
+  --od-7:           48px;
+  --od-8:           72px;
+  --sekcja:         104px;    /* pionowy oddech sekcji, zmierzony na home */
+
+  /* ==========================================================================
+     7. KSZTAŁT
+     Home operuje czterema promieniami i to wystarcza całemu projektowi.
+     ========================================================================== */
+  --r-karta:        22px;     /* karta: karuzela, listing, formularz, filtry */
+  --r-kafel:        14px;     /* kafel ze zdjęciem WEWNĄTRZ karty */
+  --r-pigulka:      999px;    /* chip, zakładka, plakietka */
+  --r-kolo:         50%;      /* okrągła miniatura: osoba, kategoria */
+
+  /* ==========================================================================
+     8. GŁĘBIA
+     Cień zastępuje ramkę. Dwa poziomy razy dwa tła.
+     ========================================================================== */
+  --cien-karta:     0 18px 40px rgba(12,18,12,.32);   /* karta na CIEMNYM tle (karuzela na zielonym) */
+  --cien-karta-h:   0 26px 54px rgba(12,18,12,.42);   /* ta sama karta w hover */
+  --cien-lekki:     0 2px 10px rgba(38,36,31,.06);    /* karta na JASNYM tle: listing, formularz */
+  --cien-lekki-h:   0 10px 24px rgba(38,36,31,.12);   /* ta sama karta w hover */
+
+  /* ==========================================================================
+     9. UKŁAD
+     ========================================================================== */
+  --max:            1280px;   /* kontener treści: 1280 + 2 × 28 px marginesu */
+  --naw-h:          102px;    /* wysokość paska nawigacji, odtworzona z Figmy */
+  --cel-dotyk:      44px;     /* minimalny cel dotykowy */
+
+
+  /* ==========================================================================
+     ALIASY ZGODNOŚCI — nie używaj w nowym kodzie
+     Nazwy z etapu 4, nazwane po wyglądzie. Zostają, bo siedzą w ~1200 liniach
+     `03 - Design/design.css`, a jednoczesna podmiana wszystkich naraz byłaby
+     zmianą, po której nie da się sprawdzić, co dokładnie się zepsuło.
+     Migracja idzie sekcjami: podstrony są już na rolach, strona główna
+     dojeżdża w etapie 6. Postęp widać przez pomiar.py --drift.
+     ========================================================================== */
+  --krem:           var(--tlo);
+  --krem-2:         var(--tlo-2);
+  --nori:           var(--tlo-nori);
+  --nori-2:         var(--tlo-nori-2);
+  --nori-3:         #35543F;      /* trzeci zielony, 1 wystąpienie — do skasowania w etapie 6 */
+  --grafit:         var(--tekst);
+  --akcent:         var(--marka);
+  --akcent-2:       var(--cta-hover);
+  --tekst-2:        var(--tekst-cichy);
+  --bialy:          var(--tlo-karta);
+  --obrys-jasny:    #DDD6C2;      /* prawie identyczny z --linia, scalić w etapie 6 */
+
+  /* Kolory pojedynczego użycia z pomiaru. Nie są tokenami systemu, stoją tu
+     tylko po to, żeby --drift nie zgłaszał ich jako nieznanych. Każdy z nich
+     jest kandydatem do skasowania. */
+  --oliwka:         #B5AF5C;      /* 1 wystąpienie */
+  --ziel-jasna:     #6CB33F;      /* 1 wystąpienie */
+  --piasek:         #D3A45F;      /* 1 wystąpienie */
+  --morski:         #5C9B8E;      /* 1 wystąpienie, słowo na slajdzie kategorii */
+}

@@ -1,0 +1,20 @@
+/* =============================================================================
+   HOPit — FONTY
+   Ładowany PIERWSZY, przed tokens.css. Kolejność jest wiążąca.
+
+   ŚCIEŻKA: Google Fonts, hosting Google, bez self-hostingu.
+   Oba kroje są na licencji SIL Open Font License 1.1, czyli wolno je również
+   pobrać i serwować z własnego serwera. Do przekazania deweloperowi klienta
+   nie trzeba żadnej licencji imiennej ani konta — to różnica wobec Adobe Fonts
+   i dlatego ta decyzja jest tu zapisana, a nie tylko w linku w HTML.
+
+     Archivo      — nagłówki i treść (400, 500, 600, 700, 900 + kursywy 700, 900)
+     Space Mono   — etykiety, liczby, metadane (400, 700)
+
+   Podzbiór latin-ext jest wymagany: ą ć ę ł ń ó ś ź ż.
+   Zapytanie niżej go obejmuje, bo Google dobiera zakres po treści strony.
+
+   PRZY ODDANIU (etap 8): ten akapit idzie do README paczki.
+   ============================================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,900;1,700;1,900&family=Space+Mono:wght@400;700&display=swap");
