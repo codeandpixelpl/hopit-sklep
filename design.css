@@ -754,7 +754,8 @@ table.parametry th{background:var(--krem-2);font-weight:600;width:46%;font-famil
   .kategorie--slajdy{background-attachment:fixed}
 }
 .kategorie--slajdy .wrap{position:relative;width:100%}
-.kategorie__tytul{color:var(--krem);font-size:clamp(34px,4.6vw,64px);margin:14px 0 0}
+/* mniejszy niż tytuł slajdu: dwa duże napisy jeden pod drugim konkurowały ze sobą */
+.kategorie__tytul{color:var(--krem);font-size:clamp(26px,2.6vw,36px);margin:10px 0 0}
 .slajdy{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:start;margin-top:40px}
 
 .slajd{
@@ -812,7 +813,8 @@ table.parametry th{background:var(--krem-2);font-weight:600;width:46%;font-famil
   background:linear-gradient(180deg,rgba(18,26,20,.82) 0%,rgba(18,26,20,.58) 45%,rgba(18,26,20,.86) 100%);
 }
 .kategorie--karuzela .wrap{position:relative;width:100%}
-.kategorie__tytul{color:var(--krem);font-size:clamp(34px,4.6vw,64px);margin:14px 0 0}
+/* mniejszy niż tytuł slajdu: dwa duże napisy jeden pod drugim konkurowały ze sobą */
+.kategorie__tytul{color:var(--krem);font-size:clamp(26px,2.6vw,36px);margin:10px 0 0}
 
 .karuzela{
   position:relative;display:flex;gap:22px;margin-top:46px;
@@ -1080,3 +1082,9 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
   .strona-head--kategorie{padding:16px 0 4px}
   .sklep-uklad{padding-block:20px 48px}
 }
+
+/* kicker w sekcji kategorii dziedziczył kolor tekstu sekcji, przez co miał
+   dokładnie barwę tła (kontrast 1,0:1) i był niewidoczny */
+.kategorie--slajdy .kicker{color:var(--cta-tekst-cd)}
+.kategorie--slajdy .wrap{position:relative;z-index:1}
+.slajdy{margin-top:26px}
