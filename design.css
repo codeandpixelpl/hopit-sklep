@@ -950,10 +950,12 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
   width:89.495vw;display:flex;flex-direction:column;align-items:center;gap:.573vw;
 }
 .hero__napisy{position:relative;width:100%;padding-top:27.707%}
+/* uwaga Damiana z 29.08: napis zajmował zbyt dużo miejsca, ma być podpisem
+   pod znakiem, jak na kartonie w tle. Skala z 9,288vw na 5,4vw. */
 .hn{
   position:absolute;display:flex;align-items:center;justify-content:center;
   font-family:var(--f-display);font-weight:900;font-style:italic;text-transform:uppercase;
-  font-size:9.288vw;line-height:.9;letter-spacing:-.03em;color:var(--krem);
+  font-size:5.4vw;line-height:.9;letter-spacing:-.03em;color:var(--krem);
   white-space:nowrap;transform:rotate(-5deg);
 }
 /* "it" jak w znaku: mała litera, waga 700, akcent niesie pasek pod spodem.
@@ -973,7 +975,8 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
 .hn--bitter    {left:41.136%;top:38.356%;width:41.573%;height:46.558%}
 .hn--bitter-cien{left:0;     top:53.443%;width:41.573%;height:46.558%}
 
-.hero__dol{display:flex;flex-direction:column;align-items:center;gap:23px;width:434px}
+/* cztery odnośniki nie mieszczą się w 434 px z pary przycisków */
+.hero__dol{display:flex;flex-direction:column;align-items:center;gap:23px;width:min(760px,100%)}
 .hero__lead{
   font-family:var(--f-display);font-weight:500;font-size:21px;line-height:33.6px;
   color:var(--krem);text-align:center;margin:0;width:100%;
@@ -1088,3 +1091,30 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
 .kategorie--slajdy .kicker{color:var(--cta-tekst-cd)}
 .kategorie--slajdy .wrap{position:relative;z-index:1}
 .slajdy{margin-top:26px}
+
+/* cztery odnośniki zamiast dwóch przycisków (uwaga Damiana z 29.08) */
+.hero__odnosniki{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px 12px;margin-top:6px;
+}
+.hero__odnosniki a{
+  display:inline-flex;align-items:center;height:48px;padding:0 24px;
+  font-family:var(--f-display);font-weight:700;font-size:13.5px;letter-spacing:.08em;
+  text-transform:uppercase;text-decoration:none;color:var(--krem);
+  box-shadow:inset 0 0 0 1.5px rgba(242,239,230,.45);transition:background .18s,box-shadow .18s;
+}
+.hero__odnosniki a:hover{background:var(--krem);color:var(--nori);box-shadow:none}
+.hero__odnosniki a:first-child{background:var(--akcent);color:#fff;box-shadow:none}
+.hero__odnosniki a:first-child:hover{background:var(--akcent-2)}
+@media (max-width:560px){
+  .hero__odnosniki a{height:44px;padding:0 16px;font-size:12px}
+}
+
+/* flaga pochodzenia na karcie listingu (uwaga Damiana z 29.08).
+   Kraju nie mamy dla żadnej odmiany, więc slot stoi w stanie oczekiwania. */
+.prod-k__kraj{
+  display:flex;align-items:center;gap:7px;margin-top:2px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:#A5A090;
+}
+.prod-k__flaga{
+  width:20px;height:14px;flex:0 0 auto;border:1px dashed var(--linia);border-radius:2px;
+}
