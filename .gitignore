@@ -1,0 +1,14 @@
+# system
+.DS_Store
+Thumbs.db
+
+# logi i pliki tymczasowe
+*.log
+*.tmp
+
+# narzędzia i materiały wewnętrzne
+_*
+docs/
+koncept/
+podglad.html
+CLAUDE.md
