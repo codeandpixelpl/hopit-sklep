@@ -23,10 +23,12 @@
   <div class="panel__tresc">
     <label class="panel__zamknij" for="naw-box">Zamknij<span></span></label>
     <nav class="panel__lista" aria-label="Nawigacja główna">
-      <a class="panel__poz" href="sklep.html">PRODUKTY<sup>01</sup></a>
-      <a class="panel__poz" href="b2b.html">STREFA B2B<sup>02</sup></a>
-      <a class="panel__poz" href="index.html#zespol">ZESPÓŁ<sup>03</sup></a>
-      <a class="panel__poz" href="kontakt.html">KONTAKT<sup>04</sup></a>
+      <a class="panel__poz" href="o-nas.html">O NAS<sup>01</sup></a>
+      <a class="panel__poz" href="dostawcy.html">NASI DOSTAWCY<sup>02</sup></a>
+      <a class="panel__poz" href="sklep.html">PRODUKTY<sup>03</sup></a>
+      <a class="panel__poz" href="b2b.html">STREFA B2B<sup>04</sup></a>
+      <a class="panel__poz" href="index.html#zespol">ZESPÓŁ<sup>05</sup></a>
+      <a class="panel__poz" href="kontakt.html">KONTAKT<sup>06</sup></a>
       <a class="panel__poz" href="koszyk.html">KOSZYK<sup>05</sup></a>
     </nav>
     <div class="panel__stopka">
@@ -60,7 +62,7 @@
 </div>
 <header class="naw">
   <div class="wrap">
-    <a class="logo" href="index.html" aria-label="HOPit, strona główna"><span class="logo__hop">HOP</span><span class="logo__it">it</span></a>
+    <a class="znak" href="index.html" aria-label="HOPit, strona główna"><img class="logo__znak" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152"></a>
     <div class="naw__prawa">
       <a class="koszyk" href="koszyk.html">KOSZYK<span class="koszyk__plakietka">0</span></a>
       <label class="wyzwalacz" for="naw-box">Menu<span class="wyzwalacz__kreski" aria-hidden="true"></span></label>
@@ -68,11 +70,9 @@
   </div>
 </header>
   <div class="hero__blok">
-    <div class="hero__napisy" aria-label="Make it Bitter">
-      <span class="hn hn--make">Make <em>it</em></span>
-      <span class="hn hn--cien hn--make-cien" aria-hidden="true">Make <em>it</em></span>
-      <span class="hn hn--bitter">Bitter</span>
-      <span class="hn hn--cien hn--bitter-cien" aria-hidden="true">Bitter</span>
+    <div class="hero__znak">
+      <img class="hero__znak-logo" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152">
+      <img class="hero__znak-haslo" src="media/haslo-make-it-bitter.svg" alt="Make it Bitter" width="593" height="58">
     </div>
     <div class="hero__dol">
       <p class="hero__lead">Chmiele, drożdże, olejki i&nbsp;enzymy</p>
@@ -90,58 +90,43 @@
   <div class="wrap">
     <div class="sekcja-head">
       <div>
-        <p class="kicker">Polecane odmiany</p>
+        <p class="kicker">Polecane produkty</p>
         <h2 class="tytul" style="margin-top:14px"><span class="marker"><span class="marker__tresc">Koniecznie <span class="cien">wypróbuj!</span></span></span></h2>
       </div>
+      <p class="polecane__meta">po jednym z każdej kategorii · ceny netto ze sklepu</p>
     </div>
   </div>
-  <div class="karuzela" tabindex="0" role="group" aria-label="Polecane odmiany, przewijanie w poziomie">
+  <div class="karuzela" tabindex="0" role="group" aria-label="Polecane produkty, przewijanie w poziomie">
       <a class="kar-karta kar-karta--produkt" href="produkt.html">
         <div class="kar-karta__foto"><img src="assets/pack-granulat-kopiec.jpg" alt="Granulat chmielu Nectaron" loading="lazy" width="800" height="800"></div>
-        <span class="kar-karta__nr">Wskazana przez klienta</span>
+        <span class="kar-karta__nr">Granulat chmielu</span>
         <h3 class="tytul kar-karta__nazwa">Nectaron</h3>
         <span class="kar-karta__cena">149,-&nbsp;/&nbsp;kg</span>
         <div class="kar-karta__chipy"><span>ALFA 10–12</span><span>OLEJKI 1,7 ml/100 g</span><span>IPA · NEIPA</span><span>ananas · marakuja · brzoskwinia</span></div>
         <span class="kar-karta__stopka">Idź do sklepu →</span>
       </a>
-      <a class="kar-karta kar-karta--produkt" href="produkt.html">
-        <div class="kar-karta__foto"><img src="assets/pack-granulat-flatlay.jpg" alt="Granulat chmielu Superdelic" loading="lazy" width="800" height="800"></div>
-        <span class="kar-karta__nr">Wskazana przez klienta</span>
-        <h3 class="tytul kar-karta__nazwa">Superdelic</h3>
-        <span class="kar-karta__cena">159,-&nbsp;/&nbsp;kg</span>
-        <div class="kar-karta__chipy"><span>NOWA ZELANDIA</span><span>GRANULAT</span></div>
+      <a class="kar-karta kar-karta--produkt" href="sklep.html">
+        <div class="kar-karta__foto"><img src="assets/klient/apres-ski.jpg" alt="Drożdże Apres Ski, opakowanie 500 g" loading="lazy" width="800" height="800"></div>
+        <span class="kar-karta__nr">Drożdże</span>
+        <h3 class="tytul kar-karta__nazwa">Apres Ski</h3>
+        <span class="kar-karta__cena">275,00 zł netto</span>
+        <div class="kar-karta__chipy"><span>WHC LAB</span><span>500 g</span></div>
         <span class="kar-karta__stopka">Idź do sklepu →</span>
       </a>
-      <a class="kar-karta kar-karta--produkt" href="produkt.html">
-        <div class="kar-karta__foto"><img src="assets/pack-granulat-flatlay.jpg" alt="Granulat chmielu Amarillo ułożony w łuk" loading="lazy" width="800" height="800"></div>
-        <span class="kar-karta__nr">Z katalogu</span>
-        <h3 class="tytul kar-karta__nazwa">Amarillo</h3>
-        <span class="kar-karta__cena">149,00 – 695,00 zł netto</span>
-        <div class="kar-karta__chipy"><span>GRANULAT</span></div>
+      <a class="kar-karta kar-karta--produkt" href="sklep.html">
+        <div class="kar-karta__foto"><img src="assets/klient/hopzoil-majik.jpg" alt="Hopzoil Majik Ahhhroma" loading="lazy" width="800" height="800"></div>
+        <span class="kar-karta__nr">Hopzoil</span>
+        <h3 class="tytul kar-karta__nazwa">Majik Ahhhroma</h3>
+        <span class="kar-karta__cena">568,00 zł netto</span>
+        <div class="kar-karta__chipy"><span>OLEJ Z CHMIELU</span><span>MAJIK</span></div>
         <span class="kar-karta__stopka">Idź do sklepu →</span>
       </a>
-      <a class="kar-karta kar-karta--produkt" href="produkt.html">
-        <div class="kar-karta__foto"><img src="assets/pack-granulat-makro.jpg" alt="Granulat chmielu Azacca w powiększeniu" loading="lazy" width="800" height="800"></div>
-        <span class="kar-karta__nr">Z katalogu</span>
-        <h3 class="tytul kar-karta__nazwa">Azacca</h3>
-        <span class="kar-karta__cena">129,00 – 595,00 zł netto</span>
-        <div class="kar-karta__chipy"><span>GRANULAT</span></div>
-        <span class="kar-karta__stopka">Idź do sklepu →</span>
-      </a>
-      <a class="kar-karta kar-karta--produkt" href="produkt.html">
-        <div class="kar-karta__foto"><img src="assets/pack-granulat-kopiec.jpg" alt="Kopiec granulatu chmielu Blanc" loading="lazy" width="800" height="800"></div>
-        <span class="kar-karta__nr">Z katalogu</span>
-        <h3 class="tytul kar-karta__nazwa">Blanc</h3>
-        <span class="kar-karta__cena">59,00 – 295,00 zł netto</span>
-        <div class="kar-karta__chipy"><span>GRANULAT</span></div>
-        <span class="kar-karta__stopka">Idź do sklepu →</span>
-      </a>
-      <a class="kar-karta kar-karta--produkt" href="produkt.html">
-        <div class="kar-karta__foto"><img src="assets/pack-granulat-makro.jpg" alt="Granulat chmielu Akoya" loading="lazy" width="800" height="800"></div>
-        <span class="kar-karta__nr">Z katalogu</span>
-        <h3 class="tytul kar-karta__nazwa">Akoya</h3>
-        <span class="kar-karta__cena">65,00 – 295,00 zł netto</span>
-        <div class="kar-karta__chipy"><span>GRANULAT</span></div>
+      <a class="kar-karta kar-karta--produkt" href="sklep.html">
+        <div class="kar-karta__foto"><img src="assets/klient/aldc.jpg" alt="Enzym ALDC" loading="lazy" width="800" height="800"></div>
+        <span class="kar-karta__nr">Enzymy i środki procesowe</span>
+        <h3 class="tytul kar-karta__nazwa">ALDC</h3>
+        <span class="kar-karta__cena">589,00 – 2 699,00 zł netto</span>
+        <div class="kar-karta__chipy"><span>DEKARBOKSYLAZA α-ACETOLAKTANU</span></div>
         <span class="kar-karta__stopka">Idź do sklepu →</span>
       </a>
   </div>
@@ -173,32 +158,28 @@
 <section class="kategorie kategorie--slajdy" id="kategorie" aria-label="Kategorie produktów">
   <div class="wrap">
     <p class="kicker kicker--akcent">Sklep</p>
-    <h2 class="tytul kategorie__tytul">Granulat chmielu, drożdże, Hopzoil, enzymy</h2>
+    <h2 class="tytul kategorie__tytul">Granulat Chmielu, Drożdże, Hopzoil, Enzymy</h2>
     <div class="slajdy">
       <div class="slajdy__tekst">
         <article class="slajd tu" data-nr="0">
-          <p class="slajd__nr">01</p>
           <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#6CB33F">Granulat</span><br>chmielu.</h3>
           <p class="slajd__opis">Wszystkie chmiele można również zamawiać za pomocą formularza kontraktowego.</p>
           <p class="slajd__dana">chmiele z topowych kierunków</p>
           <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
         </article>
         <article class="slajd" data-nr="1">
-          <p class="slajd__nr">02</p>
           <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#B5AF5C">Drożdże</span><br>WHC Lab.</h3>
-          <p class="slajd__opis">Szczepy WHC Lab: od lagerów po NEIPA i kveiki.</p>
+          <p class="slajd__opis">Od lagerów po NEIPA i kveiki.</p>
           <p class="slajd__dana">opakowania 500 g</p>
           <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
         </article>
         <article class="slajd" data-nr="2">
-          <p class="slajd__nr">03</p>
-          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#D3A45F">Hopzoil</span><br>MAJIK i PURE.</h3>
+          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#D3A45F">Hopzoil</span></h3>
           <p class="slajd__opis">Oleje destylowane ze świeżych szyszek. Alternatywa dla pelletu w dry hoppingu.</p>
           <p class="slajd__dana">olej z chmielu</p>
           <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
         </article>
         <article class="slajd" data-nr="3">
-          <p class="slajd__nr">04</p>
           <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#5C9B8E">Enzymy</span><br>i środki procesowe.</h3>
           <p class="slajd__opis">Dodatki funkcjonalne i preparaty enzymatyczne.</p>
           <p class="slajd__dana">6 preparatów</p>
@@ -277,7 +258,7 @@
   <div class="wrap">
     <div class="stopka__siatka">
       <div class="stopka__kol">
-        <span class="stopka__logo"><span class="logo logo--stopka"><span class="logo__hop">HOP</span><span class="logo__it">it</span></span><span class="stopka__szare">S.C.</span></span>
+        <span class="stopka__logo"><img class="logo__znak logo__znak--stopka" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152"><span class="stopka__szare">S.C.</span></span>
         <span class="stopka__szare">ul. Kruszcowa 4, 41-902 Bytom</span>
         <span class="stopka__mono">info@hopit.pl</span>
         <span class="stopka__mono">+48 536 763 341 · +48 606 453 641</span>

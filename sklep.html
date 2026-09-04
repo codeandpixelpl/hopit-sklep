@@ -29,7 +29,7 @@
 <input type="checkbox" id="naw-box" class="naw-box" aria-label="Menu">
 <header class="naw naw--jasna">
   <div class="wrap">
-    <a class="logo" href="index.html" aria-label="HOPit, strona główna"><span class="logo__hop">HOP</span><span class="logo__it">it</span></a>
+    <a class="znak" href="index.html" aria-label="HOPit, strona główna"><img class="logo__znak" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152"></a>
     <div class="naw__prawa">
       <a class="koszyk" href="koszyk.html">KOSZYK<span class="koszyk__plakietka">0</span></a>
       <label class="wyzwalacz" for="naw-box">Menu<span class="wyzwalacz__kreski" aria-hidden="true"></span></label>
@@ -44,10 +44,12 @@
   <div class="panel__tresc">
     <label class="panel__zamknij" for="naw-box">Zamknij<span></span></label>
     <nav class="panel__lista" aria-label="Nawigacja główna">
-      <a class="panel__poz" href="sklep.html">PRODUKTY<sup>01</sup></a>
-      <a class="panel__poz" href="b2b.html">STREFA B2B<sup>02</sup></a>
-      <a class="panel__poz" href="index.html#zespol">ZESPÓŁ<sup>03</sup></a>
-      <a class="panel__poz" href="kontakt.html">KONTAKT<sup>04</sup></a>
+      <a class="panel__poz" href="o-nas.html">O NAS<sup>01</sup></a>
+      <a class="panel__poz" href="dostawcy.html">NASI DOSTAWCY<sup>02</sup></a>
+      <a class="panel__poz" href="sklep.html">PRODUKTY<sup>03</sup></a>
+      <a class="panel__poz" href="b2b.html">STREFA B2B<sup>04</sup></a>
+      <a class="panel__poz" href="index.html#zespol">ZESPÓŁ<sup>05</sup></a>
+      <a class="panel__poz" href="kontakt.html">KONTAKT<sup>06</sup></a>
       <a class="panel__poz" href="koszyk.html">KOSZYK<sup>05</sup></a>
     </nav>
     <div class="panel__stopka">
@@ -109,114 +111,166 @@
       </ul>
       <h3>Rocznik</h3>
       <ul>
-        <li>2026</li>
-        <li>starsze roczniki</li>
+        <li><label class="filtr"><input type="checkbox" name="rocznik" checked><span>2026</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="rocznik"><span>starsze roczniki</span></label></li>
       </ul>
-  
+      <h3>Typ produktu</h3>
+      <ul>
+        <li><label class="filtr"><input type="checkbox" name="typ"><span>Granulat chmielu</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="typ"><span>Drożdże</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="typ"><span>Hopzoil</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="typ"><span>Enzymy i środki procesowe</span></label></li>
+      </ul>
+      <h3>Cena netto</h3>
+      <ul>
+        <li><label class="filtr"><input type="checkbox" name="cena"><span>do 99 zł</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="cena"><span>100 – 299 zł</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="cena"><span>300 – 699 zł</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="cena"><span>od 700 zł</span></label></li>
+      </ul>
+      <h3>Alfa-kwasy</h3>
+      <ul>
+        <li><label class="filtr"><input type="checkbox" name="alfa"><span>do 5%</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="alfa"><span>5 – 10%</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="alfa"><span>10 – 15%</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="alfa"><span>ponad 15%</span></label></li>
+      </ul>
+      <h3>Do jakiego piwa</h3>
+      <ul>
+        <li><label class="filtr"><input type="checkbox" name="piwo"><span>Lager</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="piwo"><span>IPA</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="piwo"><span>NEIPA</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="piwo"><span>Hefeweizen</span></label></li>
+      </ul>
+      <h3>Aromat</h3>
+      <ul>
+        <li><label class="filtr"><input type="checkbox" name="aromat"><span>ananas</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="aromat"><span>marakuja</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="aromat"><span>brzoskwinia</span></label></li>
+        <li class="filtr__czeka">pełna lista aromatów od klienta</li>
+      </ul>
+      <h3>Dostępność</h3>
+      <ul>
+        <li><label class="filtr"><input type="checkbox" name="dostepnosc"><span>Dostępne</span></label></li>
+        <li><label class="filtr"><input type="checkbox" name="dostepnosc"><span>Niedostępne</span></label></li>
+      </ul>
+      <p class="filtr__uwaga">Zaznaczenie „Lager” zawęża naraz chmiele, drożdże i enzymy do tego stylu.</p>
     </div>
   </aside>
 
   <div>
     <div class="listing-top">
       <span>12 odmian na tej stronie · strona 1 z 13</span>
-      <span class="mono">Pokaż: 12 / 24 / 36</span>
+      <div class="listing-top__prawa">
+        <label class="sortuj"><span class="mono">Sortuj:</span>
+          <select name="sortowanie" aria-label="Sortowanie">
+            <option>Polecane</option>
+            <option>Najtańsze</option>
+            <option>Najdroższe</option>
+            <option>Alfa-kwasy: od najwyższych</option>
+            <option>Alfa-kwasy: od najniższych</option>
+            <option>Nazwa A–Z</option>
+          </select>
+        </label>
+        <span class="mono">Pokaż: 12 / 24 / 36</span>
+      </div>
     </div>
 
     <div class="listing">
       <article class="prod-k">
         <span class="prod-k__badge">PROMOCJA</span>
+        <span class="prod-k__flaga prod-k__flaga--dane" title="UK">UK</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-kopiec.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Admiral</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena"><s>575,00 zł</s>495,00 zł netto</p>
         <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
         <span class="prod-k__badge">PROMOCJA</span>
+        <span class="prod-k__flaga prod-k__flaga--dane" title="Niemcy">DE</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-flatlay.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Akoya</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">65,00 – 295,00 zł netto</p>
         <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
         <span class="prod-k__badge">PROMOCJA</span>
+        <span class="prod-k__flaga prod-k__flaga--dane" title="USA">USA</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-makro.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Alora</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena"><s>139,00 zł</s>19,00 zł netto</p>
         <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
+        <span class="prod-k__flaga prod-k__flaga--dane" title="USA">USA</span>
         <div class="prod-k__foto"><img src="assets/mini-granulat.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Amarillo</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">149,00 – 695,00 zł netto</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
+        <span class="prod-k__flaga prod-k__flaga--dane" title="Polska">PL</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-kopiec.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Amora Preta</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">79,00 – 345,00 zł netto</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
+        <span class="prod-k__flaga prod-k__flaga--dane" title="USA">USA</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-flatlay.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Apollo</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">cena po wyborze opcji</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
         <span class="prod-k__badge">PROMOCJA</span>
+        <span class="prod-k__flaga prod-k__flaga--dane" title="Niemcy">DE</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-makro.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Aurum</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">20,00 – 99,00 zł netto</p>
         <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
+        <span class="prod-k__flaga prod-k__flaga--dane" title="USA">USA</span>
         <div class="prod-k__foto"><img src="assets/mini-granulat.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Azacca</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">129,00 – 595,00 zł netto</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
         <span class="prod-k__badge">PROMOCJA</span>
+        <span class="prod-k__flaga prod-k__flaga--dane" title="USA">USA</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-kopiec.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Belma</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">95,00 – 109,00 zł netto</p>
         <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
+        <span class="prod-k__flaga prod-k__flaga--dane" title="USA">USA</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-flatlay.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Bergamot™</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">795,00 zł netto</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
         <span class="prod-k__badge">PROMOCJA</span>
+        <span class="prod-k__flaga prod-k__flaga--dane" title="Niemcy">DE</span>
         <div class="prod-k__foto"><img src="assets/pack-granulat-makro.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Blanc</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">59,00 – 295,00 zł netto</p>
         <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
       </article>
       <article class="prod-k">
         <span class="prod-k__badge">PROMOCJA</span>
+        <span class="prod-k__flaga prod-k__flaga--dane" title="Czechy">CZ</span>
         <div class="prod-k__foto"><img src="assets/mini-granulat.jpg" alt="" loading="lazy"></div>
         <h3 class="tytul prod-k__nazwa">Bohemie</h3>
-        <span class="prod-k__kraj"><span class="prod-k__flaga" aria-hidden="true"></span>kraj pochodzenia</span>
         <p class="prod-k__cena">29,00 – 69,00 zł netto</p>
         <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
         <a class="btn btn--obrys btn--male" href="produkt.html">Wybierz opcje</a>
@@ -234,13 +288,15 @@
   <div class="wrap">
     <div class="stopka__siatka">
       <div class="stopka__kol">
-        <span class="stopka__logo"><span class="logo logo--stopka"><span class="logo__hop">HOP</span><span class="logo__it">it</span></span><span class="stopka__szare">S.C.</span></span>
+        <span class="stopka__logo"><img class="logo__znak logo__znak--stopka" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152"><span class="stopka__szare">S.C.</span></span>
         <span class="stopka__szare">ul. Kruszcowa 4, 41-902 Bytom</span>
         <span class="stopka__mono">info@hopit.pl</span>
         <span class="stopka__mono">+48 536 763 341 · +48 606 453 641</span>
       </div>
       <div class="stopka__kol">
         <span class="stopka__naglowek">MENU</span>
+        <a href="o-nas.html">O nas</a>
+        <a href="dostawcy.html">Nasi Dostawcy</a>
         <a href="index.html">Home</a>
         <a href="sklep.html">Sklep</a>
         <a href="b2b.html">Strefa B2B</a>
