@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOPit: chmiel, drożdże i oleje chmielowe dla browarów</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,900;1,700;1,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+
+
+
+<input type="checkbox" id="naw-box" class="naw-box" aria-label="Menu">
+
+<div class="panel">
+  <label class="panel__zaslona" for="naw-box" aria-label="Zamknij menu"></label>
+  <span class="panel__warstwa panel__warstwa--a" aria-hidden="true"></span>
+  <span class="panel__warstwa panel__warstwa--b" aria-hidden="true"></span>
+  <div class="panel__tresc">
+    <label class="panel__zamknij" for="naw-box">Zamknij<span></span></label>
+    <nav class="panel__lista" aria-label="Nawigacja główna">
+      <a class="panel__poz" href="o-nas.html">O NAS<sup>01</sup></a>
+      <a class="panel__poz" href="dostawcy.html">NASI DOSTAWCY<sup>02</sup></a>
+      <a class="panel__poz" href="sklep.html">PRODUKTY<sup>03</sup></a>
+      <a class="panel__poz" href="b2b.html">STREFA B2B<sup>04</sup></a>
+      <a class="panel__poz" href="index.html#zespol">ZESPÓŁ<sup>05</sup></a>
+      <a class="panel__poz" href="kontakt.html">KONTAKT<sup>06</sup></a>
+      <a class="panel__poz" href="koszyk.html">KOSZYK<sup>05</sup></a>
+    </nav>
+    <div class="panel__stopka">
+      <span class="panel__etykieta">Kontakt</span>
+      <div class="panel__kontakt">
+        <a href="mailto:info@hopit.pl">info@hopit.pl</a>
+        <a href="tel:+48536763341">+48 536 763 341</a>
+        <span>ul. Kruszcowa 4, 41-902 Bytom</span>
+      </div>
+      <div class="panel__jezyki" role="group" aria-label="Wybór języka"><a class="panel__jezyk" href="#" hreflang="pl" aria-current="true">PL</a><a class="panel__jezyk" href="#" hreflang="en">EN</a></div>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <video class="hero__wideo" src="media/hero-zasyp.mp4" poster="media/pr-zasyp.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+  <div class="hero__grad" aria-hidden="true"></div>
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar__grupa">
+      <a class="topbar__poz topbar__poz--mocny" href="#">PL</a>
+      <a class="topbar__poz" href="#">EN</a>
+      <span class="topbar__poz topbar__poz--domyka topbar__tel"><img class="topbar__ikona" src="media/ikony/telefon.svg" alt="" width="17" height="17">+48 536 763 341</span>
+    </div>
+    <div class="topbar__grupa">
+      <a class="topbar__poz" href="#">Moje konto</a>
+      <a class="topbar__poz" href="#">Status zamówienia</a>
+      <a class="topbar__poz topbar__poz--domyka" href="#">Obserwowane</a>
+    </div>
+  </div>
+</div>
+<header class="naw">
+  <div class="wrap">
+    <a class="znak" href="index.html" aria-label="HOPit, strona główna"><img class="logo__znak" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152"></a>
+    <div class="naw__prawa">
+      <a class="koszyk" href="koszyk.html">KOSZYK<span class="koszyk__plakietka">0</span></a>
+      <label class="wyzwalacz" for="naw-box">Menu<span class="wyzwalacz__kreski" aria-hidden="true"></span></label>
+    </div>
+  </div>
+</header>
+  <div class="hero__blok">
+    <div class="hero__znak">
+      <img class="hero__znak-logo" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152">
+      <img class="hero__znak-haslo" src="media/haslo-make-it-bitter.svg" alt="Make it Bitter" width="593" height="58">
+    </div>
+    <div class="hero__dol">
+      <p class="hero__lead">Chmiele, drożdże, olejki i&nbsp;enzymy</p>
+      <nav class="hero__odnosniki" aria-label="Skróty">
+        <a href="o-nas.html">O nas</a>
+        <a href="dostawcy.html">Nasi Dostawcy</a>
+        <a href="sklep.html">Sklep</a>
+        <a href="b2b.html">Strefa B2B</a>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<section class="polecane" id="polecane">
+  <div class="wrap">
+    <div class="sekcja-head">
+      <div>
+        <p class="kicker">Polecane produkty</p>
+        <h2 class="tytul" style="margin-top:14px"><span class="marker"><span class="marker__tresc">Koniecznie <span class="cien">wypróbuj!</span></span></span></h2>
+      </div>
+      <p class="polecane__meta">po jednym z każdej kategorii · ceny netto ze sklepu</p>
+    </div>
+  </div>
+  <div class="karuzela" tabindex="0" role="group" aria-label="Polecane produkty, przewijanie w poziomie">
+      <a class="kar-karta kar-karta--produkt" href="produkt.html">
+        <div class="kar-karta__foto"><img src="assets/pack-granulat-kopiec.jpg" alt="Granulat chmielu Nectaron" loading="lazy" width="800" height="800"></div>
+        <span class="kar-karta__nr">Granulat chmielu</span>
+        <h3 class="tytul kar-karta__nazwa">Nectaron</h3>
+        <span class="kar-karta__cena">149,-&nbsp;/&nbsp;kg</span>
+        <div class="kar-karta__chipy"><span>ALFA 10–12</span><span>OLEJKI 1,7 ml/100 g</span><span>IPA · NEIPA</span><span>ananas · marakuja · brzoskwinia</span></div>
+        <span class="kar-karta__stopka">Idź do sklepu →</span>
+      </a>
+      <a class="kar-karta kar-karta--produkt" href="sklep.html">
+        <div class="kar-karta__foto"><img src="assets/klient/apres-ski.jpg" alt="Drożdże Apres Ski, opakowanie 500 g" loading="lazy" width="800" height="800"></div>
+        <span class="kar-karta__nr">Drożdże</span>
+        <h3 class="tytul kar-karta__nazwa">Apres Ski</h3>
+        <span class="kar-karta__cena">275,00 zł netto</span>
+        <div class="kar-karta__chipy"><span>WHC LAB</span><span>500 g</span></div>
+        <span class="kar-karta__stopka">Idź do sklepu →</span>
+      </a>
+      <a class="kar-karta kar-karta--produkt" href="sklep.html">
+        <div class="kar-karta__foto"><img src="assets/klient/hopzoil-majik.jpg" alt="Hopzoil Majik Ahhhroma" loading="lazy" width="800" height="800"></div>
+        <span class="kar-karta__nr">Hopzoil</span>
+        <h3 class="tytul kar-karta__nazwa">Majik Ahhhroma</h3>
+        <span class="kar-karta__cena">568,00 zł netto</span>
+        <div class="kar-karta__chipy"><span>OLEJ Z CHMIELU</span><span>MAJIK</span></div>
+        <span class="kar-karta__stopka">Idź do sklepu →</span>
+      </a>
+      <a class="kar-karta kar-karta--produkt" href="sklep.html">
+        <div class="kar-karta__foto"><img src="assets/klient/aldc.jpg" alt="Enzym ALDC" loading="lazy" width="800" height="800"></div>
+        <span class="kar-karta__nr">Enzymy i środki procesowe</span>
+        <h3 class="tytul kar-karta__nazwa">ALDC</h3>
+        <span class="kar-karta__cena">589,00 – 2 699,00 zł netto</span>
+        <div class="kar-karta__chipy"><span>DEKARBOKSYLAZA α-ACETOLAKTANU</span></div>
+        <span class="kar-karta__stopka">Idź do sklepu →</span>
+      </a>
+  </div>
+</section>
+
+<section class="opinie" id="opinie">
+  <div class="wrap">
+    <div class="sekcja-head">
+      <p class="kicker">Opinie browarów</p>
+      <h2 class="tytul">Z kim warzymy</h2>
+    </div>
+  </div>
+  <div class="opinie__pas" data-opinie>
+    <div class="opinie__rzad">
+      <div class="opinie__grupa">
+        <blockquote class="opinia"><p class="opinia__tekst">Pracujemy z HOPit od lat i możemy śmiało powiedzieć, że to wzorowy dostawca. Elastyczność, zrozumienie realiów małego browaru i gotowość do pomocy w krytycznych momentach naprawdę ich wyróżniają.</p><footer class="opinia__autor"><b>Łukasz Kierski</b><span>Browar Ziemia Obiecana</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Mistrzowie chmielowego rynku. Oferują unikalne odmiany z niemal każdego zakątka świata. Profesjonalni, punktualni i zawsze otwarci na nowe pomysły oraz trendy.</p><footer class="opinia__autor"><b>Kuba Rosiek</b><span>Browar Trzech Kumpli</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Pracujemy z zespołem HOPit od lat i to jedna z tych ekip, z którymi warzy się przyjemnie. Zawsze na czas, chmiele buchają aromatem, a każda rozmowa to przyjemność.</p><footer class="opinia__autor"><b>Michał Przystupa</b><span>Browar Gwarek</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Korzystamy z usług HOPit od lat i polecamy ich każdemu w branży piwowarskiej. Dostawy są szybkie i sprawne, a jakość chmielu z całego świata niezmiennie wysoka.</p><footer class="opinia__autor"><b>Maciej Osiński</b><span>Browar ReCraft</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Zawsze można liczyć na szybką dostawę, wysoką jakość i świeżość surowców. Świetna komunikacja i bieżące informacje o wysyłce.</p><footer class="opinia__autor"><b>Dominik Szczodry</b><span>Browar Cieszyn</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Co wyróżnia HOPit? Kiedy potrzebujemy świeżego chmielu z drugiego końca świata, i to szybko, wiemy dokładnie do kogo dzwonić.</p><footer class="opinia__autor"><b>Maciej Bieliński</b><span>Browar Gościszewo</span></footer></blockquote>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+  </div>
+</section>
+
+<section class="kategorie kategorie--slajdy" id="kategorie" aria-label="Kategorie produktów">
+  <div class="wrap">
+    <p class="kicker kicker--akcent">Sklep</p>
+    <h2 class="tytul kategorie__tytul">Granulat Chmielu, Drożdże, Hopzoil, Enzymy</h2>
+    <div class="slajdy">
+      <div class="slajdy__tekst">
+        <article class="slajd tu" data-nr="0">
+          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#6CB33F">Granulat</span><br>chmielu.</h3>
+          <p class="slajd__opis">Wszystkie chmiele można również zamawiać za pomocą formularza kontraktowego.</p>
+          <p class="slajd__dana">chmiele z topowych kierunków</p>
+          <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
+        </article>
+        <article class="slajd" data-nr="1">
+          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#B5AF5C">Drożdże</span><br>WHC Lab.</h3>
+          <p class="slajd__opis">Od lagerów po NEIPA i kveiki.</p>
+          <p class="slajd__dana">opakowania 500 g</p>
+          <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
+        </article>
+        <article class="slajd" data-nr="2">
+          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#D3A45F">Hopzoil</span></h3>
+          <p class="slajd__opis">Oleje destylowane ze świeżych szyszek. Alternatywa dla pelletu w dry hoppingu.</p>
+          <p class="slajd__dana">olej z chmielu</p>
+          <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
+        </article>
+        <article class="slajd" data-nr="3">
+          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#5C9B8E">Enzymy</span><br>i środki procesowe.</h3>
+          <p class="slajd__opis">Dodatki funkcjonalne i preparaty enzymatyczne.</p>
+          <p class="slajd__dana">6 preparatów</p>
+          <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
+        </article>
+      </div>
+      <div class="slajdy__kadr">
+        <div class="kadr" style="--kolor:#6CB33F">
+          <div class="kadr__warstwa tu" data-nr="0" data-kolor="#6CB33F"><img src="media/pr-qc.jpg" alt="Granulat chmielu na tacy przy kartonie HOPit" loading="lazy" width="1200" height="1500"></div>
+          <div class="kadr__warstwa" data-nr="1" data-kolor="#B5AF5C"><img src="media/pr-sensoryka.jpg" alt="Piwo, butelki i szyszki chmielu" loading="lazy" width="1200" height="1500"></div>
+          <div class="kadr__warstwa" data-nr="2" data-kolor="#D3A45F"><img src="media/pr-hopzoil-lab.jpg" alt="Fiolki Hopzoil w walizce" loading="lazy" width="1200" height="1500"></div>
+          <div class="kadr__warstwa" data-nr="3" data-kolor="#5C9B8E"><img src="media/pr-probki.jpg" alt="Próbki i dozowanie preparatów" loading="lazy" width="1200" height="1500"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontrakt kontrakt--drogi" id="kontrakt">
+  <div class="wrap">
+    <h2 class="tytul tytul--ciemny"><span class="marker"><span class="marker__tresc">Jak kupować</span></span></h2>
+    <div class="dwie-drogi">
+      <article class="droga droga--nori">
+        <h3 class="tytul droga__nazwa">Kontrakt</h3>
+        <p class="droga__opis">Powiedz nam ile chmielu potrzebujesz, a&nbsp;my wrócimy do Ciebie z&nbsp;indywidualną ofertą. Kontrakt to gwarancja atrakcyjnej ceny i&nbsp;pewnej dostawy.</p>
+        <a class="btn btn--akcent droga__btn" href="b2b.html#formularz">Wypełnij formularz</a>
+      </article>
+      <article class="droga droga--biala">
+        <h3 class="tytul droga__nazwa">Sklep</h3>
+        <p class="droga__opis">Wszystkie odmiany, oleje i&nbsp;drożdże z&nbsp;cenami. Kupujesz od&nbsp;ręki, bez pytania o&nbsp;wycenę.</p>
+        <a class="btn btn--obrys droga__btn" href="sklep.html">Przejdź do sklepu</a>
+      </article>
+    </div>
+    <p class="kontrakt__dowod kontrakt__dowod--ciemny">
+      <span><svg class="dowod__ik" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M2.5 10h15"/><path d="M10 2.5c2 2.2 3 4.7 3 7.5s-1 5.3-3 7.5c-2-2.2-3-4.7-3-7.5s1-5.3 3-7.5Z"/></svg>dostawy w całej Europie</span>
+      <span><svg class="dowod__ik" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="13" rx="1.5"/><path d="M2.5 8.5h15"/><path d="M6.5 2.5v4M13.5 2.5v4"/></svg>browary od 2016</span>
+      <span><svg class="dowod__ik" viewBox="0 0 20 20" aria-hidden="true"><path d="M2.5 7.5 10 3l7.5 4.5v9H2.5v-9Z"/><path d="M6.5 16.5v-5h7v5"/><path d="M2.5 7.5h15"/></svg>ponad 100 produktów w magazynie</span>
+    </p>
+  </div>
+  <span class="kontrakt__pas" aria-hidden="true"></span>
+  <canvas class="fizyka" aria-hidden="true"></canvas>
+</section>
+
+
+
+<section class="zespol zespol--kola" id="zespol">
+  <div class="wrap">
+    <div class="sekcja-head sekcja-head--srodek">
+      <p class="kicker">Zespół HOPit</p>
+      <h2 class="tytul"><span class="marker"><span class="marker__tresc">Prawdziwi <span class="cien">ludzie</span></span></span></h2>
+    </div>
+    <div class="kola">
+      <article class="kolo-osoba">
+        <img class="kolo-osoba__foto" src="media/portret-damian-bigaj.jpg" alt="Damian Bigaj" width="440" height="440" loading="lazy">
+        <h3 class="tytul kolo-osoba__imie">Damian Bigaj</h3>
+        <p class="kolo-osoba__rola">logistyka</p>
+        <p class="kolo-osoba__mail">dbigaj@hopit.pl</p>
+      </article>
+      <article class="kolo-osoba">
+        <img class="kolo-osoba__foto" src="media/portret-kacper-dworniczek.jpg" alt="Kacper Dworniczek" width="440" height="440" loading="lazy">
+        <h3 class="tytul kolo-osoba__imie">Kacper Dworniczek</h3>
+        <p class="kolo-osoba__rola">sprzedaż</p>
+        <p class="kolo-osoba__mail">info@hopit.pl</p>
+      </article>
+      <article class="kolo-osoba">
+        <img class="kolo-osoba__foto" src="media/portret-michal-pactwa.jpg" alt="Michał Pactwa" width="440" height="440" loading="lazy">
+        <h3 class="tytul kolo-osoba__imie">Michał Pactwa</h3>
+        <p class="kolo-osoba__rola">chmiel</p>
+        <p class="kolo-osoba__mail">info@hopit.pl</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="stopka" id="kontakt">
+  <div class="wrap">
+    <div class="stopka__siatka">
+      <div class="stopka__kol">
+        <span class="stopka__logo"><img class="logo__znak logo__znak--stopka" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152"><span class="stopka__szare">S.C.</span></span>
+        <span class="stopka__szare">ul. Kruszcowa 4, 41-902 Bytom</span>
+        <span class="stopka__mono">info@hopit.pl</span>
+        <span class="stopka__mono">+48 536 763 341 · +48 606 453 641</span>
+      </div>
+      <div class="stopka__kol">
+        <span class="stopka__naglowek">MENU</span>
+        <a href="index.html">Home</a>
+        <a href="sklep.html">Sklep</a>
+        <a href="b2b.html">Strefa B2B</a>
+        <a href="#zespol">Zespół</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+      <div class="stopka__kol">
+        <span class="stopka__naglowek">NEWSLETTER</span>
+        <form class="newsletter" action="#" method="post">
+          <input type="email" name="email" placeholder="Podaj swój adres e-mail" aria-label="Adres e-mail">
+          <button type="button">Zapisz</button>
+        </form>
+        <label class="zgoda"><input type="checkbox"><span>Zgoda na otrzymywanie newslettera. Administratorem danych jest HOPIT S.C. Szczegóły w&nbsp;polityce prywatności.</span></label>
+      </div>
+    </div>
+    <div class="stopka__prawna">
+      <div><a href="#">Regulamin Sklepu i Polityka Prywatności</a> · <a href="#">Warunki i koszty dostawy</a> · <a href="#">Polityka zwrotów</a></div>
+      <div>HOPit.pl © 2026. Wszelkie prawa zastrzeżone</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* hero: przy wlaczonej redukcji ruchu zostaje sam kadr z plakatu */
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll("video.hero__kadr, video.hero__wideo").forEach(function(v){ v.removeAttribute("autoplay"); v.pause(); });
+  }
+</script>
+<script src="slajdy.js"></script>
+<script src="fizyka.js"></script>
+<script src="opinie.js"></script>
+</body>
+</html>

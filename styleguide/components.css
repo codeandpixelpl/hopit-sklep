@@ -1,0 +1,731 @@
+/* =============================================================================
+   HOPit — KOMPONENTY PODSTRON
+   Ładowany PO tokens.css, PRZED 03 - Design/design.css.
+   Wersja: 1.0 · 2026-08-27
+
+   SKĄD SIĘ WZIĄŁ TEN PLIK
+   Etap 4 zbudował podstrony osobnym językiem: każdy element dostawał
+   `border: 2px solid var(--grafit)` i promień 0. W 35 regułach. Efekt był taki,
+   że na listingu dwanaście kart produktu miało tę samą wagę wizualną co pas
+   nagłówkowy, a strona główna obok wyglądała jak inny serwis.
+
+   Strona główna rozdziela rzeczy PŁASZCZYZNĄ, PROMIENIEM i CIENIEM:
+     .kar-karta  →  tło kremowe, promień 22, cień, zero ramki
+     .kolo-osoba →  koło 190 px, obrys przez box-shadow (pierścień, nie border)
+     chipy       →  pigułka 999
+   Ten plik przenosi ten sam język na podstrony. Ramka 2 px zostaje wyłącznie
+   jako GRANICA SEKCJI (--linia-mocna), czyli poziomy pas na całą szerokość.
+
+   KONWENCJA
+   .blok__element--modyfikator, warianty jako modyfikatory dopinane do bazy.
+   Przy nieoczywistej liczbie komentarz z arytmetyką.
+   ============================================================================= */
+
+
+/* =============================================================================
+   0. WARSTWA BAZOWA
+   Reset, typografia dokumentu i kontener treści. Musi stać NA POCZĄTKU tego
+   pliku, przed klasami układu.
+
+   Dlaczego to jest ważne: `.wrap` i `.sklep-uklad` mają tę samą specyficzność
+   (0,1,0), więc rozstrzyga kolejność. Gdy `.wrap` siedział w `design.css`,
+   ładowanym po komponentach, jego `padding:0 28px` zbijał `padding` układu
+   i listing tracił 104 px oddechu pod paginacją.
+   ============================================================================= */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--tlo);color:var(--tekst);
+  font:16px/1.6 var(--f-display);-webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--marka);color:#fff}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--marka);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.mono{font-family:var(--f-mono)}
+
+
+
+/* =============================================================================
+   1. POWIERZCHNIA — podstawa wszystkich kart podstrony
+   Jedno miejsce, w którym zapisane jest „czym jest karta". Reszta komponentów
+   dopina się do tego zamiast powtarzać cztery właściwości.
+   ============================================================================= */
+.plaszczyzna{
+  background:var(--tlo-karta);
+  border-radius:var(--r-karta);
+  box-shadow:var(--cien-lekki);
+  border:0;
+}
+.plaszczyzna--podnoszona{transition:transform .18s ease,box-shadow .18s ease}
+.plaszczyzna--podnoszona:hover{transform:translateY(-4px);box-shadow:var(--cien-lekki-h)}
+
+
+/* =============================================================================
+   2. OKRĄGŁA MINIATURA
+   Wspólna anatomia dla kategorii w sklepie i osoby w kontakcie. Na stronie
+   głównej ten kształt już jest (.kolo-osoba w sekcji zespołu) i to jest jego
+   przeniesienie, a nie nowy pomysł.
+
+   Obrys idzie przez box-shadow, nie border: border wchodziłby w wymiar i przy
+   `object-fit:cover` ścinał kadr o 2 px z każdej strony.
+   ============================================================================= */
+.kolo{
+  flex:0 0 auto;
+  border-radius:var(--r-kolo);
+  background:var(--tlo-karta);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 1px var(--linia);
+  transition:box-shadow .18s ease,transform .18s ease;
+}
+.kolo img{width:100%;height:100%;object-fit:cover;display:block}
+.kolo--pusty{
+  background:var(--tlo-2);
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;
+  color:var(--tekst-cichy);text-align:center;padding:10px;line-height:1.3;
+  box-shadow:inset 0 0 0 1px var(--linia);
+}
+
+
+/* =============================================================================
+   3. ZAKŁADKI KATEGORII — okrągłe miniatury
+   Zastępuje `.kat-tabs a { border:2px solid grafit }`.
+   Cel dotykowy: 88 (koło) + 8 (odstęp) + wiersz podpisu = ponad 44 px w każdą
+   stronę, więc próg jest spełniony samą bryłą, bez dokładania paddingu.
+   ============================================================================= */
+.kat-kafle{
+  display:flex;gap:var(--od-5);flex-wrap:wrap;justify-content:center;
+  padding:var(--od-6) 0 var(--od-2);margin:0;
+}
+.kat-kafel{
+  display:flex;flex-direction:column;align-items:center;gap:var(--od-3);
+  width:120px;text-align:center;text-decoration:none;color:var(--tekst);
+}
+.kat-kafel__kolo{width:88px;height:88px}
+.kat-kafel__nazwa{
+  font-family:var(--f-mono);font-size:var(--fs-nano);letter-spacing:.06em;
+  line-height:1.35;color:var(--tekst-cichy);transition:color .18s ease;
+}
+.kat-kafel:hover .kolo{box-shadow:0 0 0 2px var(--pierscien);transform:translateY(-3px)}
+.kat-kafel:hover .kat-kafel__nazwa{color:var(--tekst)}
+
+/* stan wybrany: pierścień w kolorze marki plus pismo pełnym kontrastem */
+.kat-kafel[aria-current] .kolo{box-shadow:0 0 0 3px var(--marka)}
+.kat-kafel[aria-current] .kat-kafel__nazwa{color:var(--tekst-mocny);font-weight:700}
+
+
+/* =============================================================================
+   4. KARTA PRODUKTU NA LISTINGU
+   Ta sama anatomia co .kar-karta na stronie głównej, tylko na jasnym tle,
+   więc cień jest lekki zamiast plakatowego.
+   ============================================================================= */
+.prod-k{
+  background:var(--tlo-karta);
+  border-radius:var(--r-karta);
+  box-shadow:var(--cien-lekki);
+  border:0;
+  padding:var(--od-4);
+  display:flex;flex-direction:column;gap:var(--od-3);
+  position:relative;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.prod-k:hover{transform:translateY(-4px);box-shadow:var(--cien-lekki-h)}
+
+/* kafel zdjęcia: ten sam promień co w karcie karuzeli na home */
+.prod-k__foto{
+  aspect-ratio:1/1;border-radius:var(--r-kafel);background:var(--tlo-karta);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.prod-k__foto img{width:82%;height:82%;object-fit:contain;mix-blend-mode:multiply}
+
+/* plakietka promocji: pigułka, nie prostokąt; kolor tła to --cta, bo napis
+   jest biały i musi przejść próg (5,2:1), a --marka daje tylko 3,37:1 */
+.prod-k__badge{
+  position:absolute;left:var(--od-3);top:var(--od-3);z-index:2;
+  background:var(--cta);color:#fff;border-radius:var(--r-pigulka);
+  font-family:var(--f-mono);font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:5px 12px;
+}
+.prod-k__nazwa{font-size:var(--fs-tytul-mini);color:var(--tekst-mocny);margin:0}
+.prod-k__cena{font-family:var(--f-mono);font-size:14px;font-weight:700;color:var(--tekst)}
+.prod-k__cena s{color:var(--tekst-cichy);font-weight:400;margin-right:var(--od-2)}
+.prod-k__omnibus{font-size:11px;color:var(--tekst-cichy);margin:0}
+.prod-k .btn{margin-top:auto;justify-content:center}
+
+
+/* =============================================================================
+   5. PANEL FILTRÓW
+   ============================================================================= */
+/* przełącznik zwijania: na szerokim ekranie go nie ma, filtry stoją otwarte */
+.filtry__box{position:absolute;opacity:0;pointer-events:none}
+.filtry__przelacz{display:none}
+.filtry{
+  background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
+  border:0;padding:var(--od-5);position:sticky;top:100px;
+}
+.filtry h3{
+  font-family:var(--f-mono);font-size:var(--fs-nano);letter-spacing:.18em;
+  text-transform:uppercase;color:var(--tekst-cichy);font-weight:400;margin:0 0 var(--od-3);
+}
+.filtry ul{list-style:none;margin:0 0 var(--od-5);padding:0;font-size:14px}
+.filtry li{
+  display:flex;justify-content:space-between;gap:var(--od-2);
+  padding:var(--od-2) 0;border-bottom:1px solid var(--linia);cursor:pointer;
+}
+.filtry li:last-child{border-bottom:0}
+.filtry li .mono{color:var(--tekst-cichy);font-size:var(--fs-mikro)}
+.filtry li:hover{color:var(--cta-tekst)}
+
+
+/* =============================================================================
+   6. PAGINACJA — pigułki
+   ============================================================================= */
+.paginacja{display:flex;gap:var(--od-2);margin-top:var(--od-6);flex-wrap:wrap;justify-content:center}
+.paginacja a{
+  min-width:var(--cel-dotyk);min-height:var(--cel-dotyk);
+  display:inline-flex;align-items:center;justify-content:center;padding:0 var(--od-4);
+  background:var(--tlo-karta);border-radius:var(--r-pigulka);border:0;
+  box-shadow:inset 0 0 0 1px var(--linia);
+  font-family:var(--f-mono);font-size:13px;color:var(--tekst);
+  transition:background .18s ease,color .18s ease,box-shadow .18s ease;
+}
+.paginacja a:hover{box-shadow:inset 0 0 0 1px var(--pierscien)}
+.paginacja a[aria-current]{background:var(--tlo-nori);color:var(--tekst-cd);box-shadow:none}
+
+
+/* =============================================================================
+   7. NOTA INFORMACYJNA
+   Dwa razy odrzucona: najpierw blok z obrysem i tłem, potem pasek z pionową
+   kreską w kolorze marki i etykietą „Informacja". Obie wersje ustawiały zdanie
+   na lewej krawędzi i dawały mu wagę nagłówka. Teraz: wyśrodkowana linijka
+   mono pod kaflami kategorii, bez etykiety, bo zdanie samo mówi, czym jest.
+   Link niesie akcję, więc to on ma być widoczny, nie ramka wokół zdania.
+   ============================================================================= */
+.info-nota{
+  margin:var(--od-5) auto 0;max-width:640px;text-align:center;
+  font-family:var(--f-mono);font-size:12px;line-height:1.7;
+  letter-spacing:.02em;color:var(--tekst-cichy);
+}
+.info-nota a{
+  color:var(--tekst-mocny);text-decoration:underline;
+  text-decoration-thickness:1px;text-underline-offset:3px;
+  transition:color .18s ease;
+}
+.info-nota a:hover{color:var(--marka)}
+
+
+/* =============================================================================
+   8. PASEK NAD LISTINGIEM
+   ============================================================================= */
+.listing-top{
+  display:flex;justify-content:space-between;align-items:center;gap:var(--od-3);
+  margin-bottom:var(--od-5);font-size:13.5px;color:var(--tekst-cichy);flex-wrap:wrap;
+}
+
+
+/* =============================================================================
+   9. GALERIA PRODUKTU
+   ============================================================================= */
+.galeria-p{min-width:0}
+.galeria-p__glowne{
+  background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
+  border:0;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.galeria-p__glowne img{width:84%;height:84%;object-fit:contain;mix-blend-mode:multiply}
+.galeria-p__minis{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--od-3);margin-top:var(--od-3)}
+.galeria-p__minis > *{
+  background:var(--tlo-karta);border-radius:var(--r-kafel);border:0;padding:0;
+  box-shadow:inset 0 0 0 1px var(--linia);
+  aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;cursor:pointer;transition:box-shadow .18s ease,opacity .18s ease;
+  opacity:.72;
+}
+.galeria-p__minis > *:hover{box-shadow:inset 0 0 0 2px var(--pierscien);opacity:1}
+.galeria-p__minis > *:focus-visible{outline:2px solid var(--pierscien);outline-offset:2px}
+/* który kadr jest na dużym zdjęciu: pierścień marki plus pełne krycie */
+.galeria-p__minis > [aria-current="true"]{
+  box-shadow:inset 0 0 0 2px var(--marka);opacity:1;cursor:default;
+}
+.galeria-p__minis img{width:100%;height:100%;object-fit:cover}
+
+
+/* =============================================================================
+   10. FORMULARZ
+   Pole miało `border:2px solid grafit; border-radius:0`, czyli wyglądało
+   mocniej niż przycisk, który je zatwierdza. Teraz włos, promień kafla,
+   a uwagę bierze dopiero stan aktywny.
+   ============================================================================= */
+.form-karta{
+  background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
+  border:0;padding:var(--od-6);
+}
+.form-siatka{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--od-4)}
+.pole{margin:0 0 var(--od-4)}
+.pole label{
+  display:block;font-family:var(--f-mono);font-size:var(--fs-nano);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--tekst-cichy);margin:0 0 var(--od-2);
+}
+.pole select,.pole input,.pole textarea{
+  width:100%;min-height:var(--cel-dotyk);
+  padding:var(--od-3) var(--od-4);
+  background:var(--tlo-karta);border:1px solid var(--linia);border-radius:var(--r-kafel);
+  font:var(--fs-tekst) var(--f-display);color:var(--tekst);
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+/* select bez skórki systemu: iOS rysował własne zaokrąglenie i strzałkę,
+   przez co pole obok inputa wyglądało jak z innego zestawu */
+.pole select{
+  -webkit-appearance:none;appearance:none;cursor:pointer;
+  padding-right:calc(var(--od-4) * 2 + 12px);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%2363604F' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right var(--od-4) center;background-size:12px 8px;
+}
+.pole select::-ms-expand{display:none}
+.pole select:hover,.pole input:hover,.pole textarea:hover{border-color:var(--tekst-cichy)}
+.pole select:focus,.pole input:focus,.pole textarea:focus{
+  outline:0;border-color:var(--pierscien);box-shadow:0 0 0 3px rgba(226,103,58,.28);
+}
+.pole textarea{min-height:120px;resize:vertical}
+.zgoda-form{
+  display:flex;gap:var(--od-3);align-items:flex-start;
+  font-size:var(--fs-mikro);color:var(--tekst-cichy);margin:var(--od-1) 0 var(--od-4);line-height:1.5;
+}
+.zgoda-form input{margin-top:2px;min-height:0;width:auto;flex:0 0 auto}
+
+
+/* =============================================================================
+   11. KROKI
+   ============================================================================= */
+.kroki{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--od-4);
+  counter-reset:krok;padding:0;margin:0;list-style:none;
+}
+.kroki li{
+  background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
+  border:0;padding:var(--od-6);counter-increment:krok;position:relative;
+}
+.kroki li::before{
+  content:"0" counter(krok);font-family:var(--f-mono);font-size:13px;font-weight:700;
+  color:var(--cta-tekst);display:block;margin-bottom:var(--od-3);letter-spacing:.16em;
+}
+.kroki h3{font-size:var(--fs-tytul-mini);color:var(--tekst-mocny);margin:0 0 var(--od-2)}
+.kroki p{margin:0;font-size:14px;line-height:1.6;color:var(--tekst-cichy)}
+
+
+/* =============================================================================
+   12. OSOBA — okrągła miniatura
+   „W kontakcie to samo" (Grzegorz, 2026-08-27): kontakt dostaje ten sam kształt
+   co zespół na stronie głównej. Karty w ramkach 2 px zastąpione miniaturą.
+   Zdjęć zespołu jeszcze nie ma, więc koło startuje jako pusty stan z inicjałami
+   i wymienia się na zdjęcie bez zmiany klas.
+   ============================================================================= */
+.osoby{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--od-5) var(--od-4)}
+.osoby--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.osoba-mini{
+  display:flex;gap:var(--od-4);align-items:center;
+  background:transparent;border:0;padding:0;
+}
+.osoba-mini__kolo{width:72px;height:72px}
+.osoba-mini__kolo.kolo--pusty{
+  font-family:var(--f-display);font-weight:900;font-size:22px;letter-spacing:0;
+  color:var(--tekst-mocny);text-transform:uppercase;
+}
+.osoba-mini__dane{min-width:0}
+.osoba-mini h3{font-size:16px;color:var(--tekst-mocny);margin:0}
+.osoba-mini p{
+  margin:var(--od-2) 0 0;font-family:var(--f-mono);font-size:var(--fs-mikro);
+  color:var(--tekst-cichy);overflow-wrap:anywhere;line-height:1.5;
+}
+.osoba-mini a{color:inherit}
+.osoba-mini a:hover{color:var(--cta-tekst)}
+
+
+/* =============================================================================
+   13. PUSTE STANY
+   Decyzja z 2026-08-24: sekcje bez treści od klienta dostają stylizowany pusty
+   stan, bez copy zastępczego. Kreska przerywana zamiast pełnej mówi wprost,
+   że to miejsce czeka, a nie że to element projektu.
+   ============================================================================= */
+.czeka,.mapa-ph{
+  border:1px dashed var(--linia);border-radius:var(--r-karta);background:var(--tlo-2);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--f-mono);font-size:var(--fs-mikro);letter-spacing:.06em;
+  color:var(--tekst-cichy);padding:var(--od-6);
+}
+.czeka{min-height:120px}
+.mapa-ph{aspect-ratio:16/8;padding:var(--od-4)}
+
+
+/* =============================================================================
+   14. SEKCJE PODSTRON I OKRUSZKI
+   ============================================================================= */
+.sekcja-zwykla{padding:var(--sekcja) 0;border-bottom:1px solid var(--linia)}
+.sekcja-zwykla h2{
+  font-size:clamp(24px,3vw,36px);color:var(--tekst-mocny);
+  margin-top:var(--od-3);margin-bottom:var(--od-5);
+}
+.okruszki{
+  font-family:var(--f-mono);font-size:var(--fs-mikro);letter-spacing:.06em;
+  color:var(--tekst-cichy);padding:var(--od-4) 0;
+}
+.okruszki a:hover{color:var(--cta-tekst)}
+.okruszki--jasne,.okruszki--jasne a{color:var(--tekst-cichy-cd)}
+.okruszki--jasne a:hover{color:var(--tekst-cd)}
+
+
+/* =============================================================================
+   15. PAS NAGŁÓWKOWY PODSTRONY
+   Decyzja z 2026-08-27 mówi, że podstrony otwierają się tym samym ciemnym pasem
+   co strona główna, i to zostaje. Zmienia się WYSOKOŚĆ: pas użytkowy (sklep,
+   kontakt) jest niższy, bo na listingu każdy piksel przed pierwszym produktem
+   jest kosztem. 64+74 = 138 px oddechu schodzi do 40+44 = 84 px, czyli produkty
+   wchodzą w kadr o ~54 px wyżej przy tej samej konstrukcji.
+   ============================================================================= */
+.pas-naglowek--uzytkowy{padding:var(--od-7) 0 var(--od-7)}
+.pas-naglowek--uzytkowy h1{font-size:clamp(32px,4.4vw,52px);transform:rotate(-1.5deg)}
+.pas-naglowek--uzytkowy .okruszki--jasne{margin-bottom:var(--od-4)}
+
+
+/* =============================================================================
+   16. UKŁADY PODSTRON
+   ============================================================================= */
+/* Rytm pionowy podajemy przez `padding-block`, NIGDY skrótem `padding`.
+   Te klasy siedzą na tym samym elemencie co `.wrap`, który daje boczne 28 px.
+   Skrót resetuje obie osie, więc kto wygra kaskadę, ten kasuje odstęp drugiego:
+   przy `.wrap` na wierzchu znikał oddech pionowy, przy układzie na wierzchu
+   treść dotykała krawędzi okna. Rozdzielenie osi kończy ten spór na stałe. */
+.sklep-uklad{
+  display:grid;grid-template-columns:260px minmax(0,1fr);gap:var(--od-6);
+  align-items:start;padding-block:var(--od-7) var(--sekcja);
+}
+.listing{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--od-4)}
+.dwie-kol{
+  display:grid;grid-template-columns:1fr 1.1fr;gap:var(--od-6);align-items:start;
+  padding-block:var(--od-7) var(--sekcja);
+}
+.produkt{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:var(--od-7);
+  align-items:start;padding-block:var(--od-7) var(--sekcja);
+}
+
+.podobne .listing{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+@media (max-width:960px){
+  .produkt,.dwie-kol{grid-template-columns:1fr}
+  .sklep-uklad{grid-template-columns:1fr}
+  .filtry{position:static;padding:0;background:transparent;box-shadow:none}
+  /* filtry zajmowały 575 px zanim ktokolwiek zobaczył pierwszy produkt */
+  .filtry__przelacz{
+    display:flex;align-items:center;justify-content:space-between;gap:var(--od-3);
+    width:100%;min-height:var(--cel-dotyk);cursor:pointer;
+    background:var(--tlo-karta);border-radius:var(--r-kafel);
+    box-shadow:inset 0 0 0 1px var(--linia);padding:var(--od-3) var(--od-4);
+    font-family:var(--f-mono);font-size:var(--fs-nano);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--tekst);
+  }
+  .filtry__przelacz::after{
+    content:"";width:11px;height:7px;flex:0 0 auto;
+    background:currentColor;transition:transform .2s ease;
+    clip-path:polygon(0 0,50% 100%,100% 0,88% 0,50% 76%,12% 0);
+  }
+  .filtry__box:checked ~ .filtry__przelacz::after{transform:rotate(180deg)}
+  .filtry__box:checked ~ .filtry__przelacz{box-shadow:inset 0 0 0 1px var(--pierscien)}
+  .filtry__box:focus-visible ~ .filtry__przelacz{outline:2px solid var(--pierscien);outline-offset:2px}
+  .filtry__tresc{display:none}
+  .filtry__box:checked ~ .filtry__tresc{
+    display:block;background:var(--tlo-karta);border-radius:var(--r-kafel);
+    box-shadow:inset 0 0 0 1px var(--linia);padding:var(--od-5) var(--od-5) var(--od-2);
+    margin-top:var(--od-3);
+  }
+  .filtry__tresc h3:first-child{margin-top:0}
+  .listing,.podobne .listing{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kroki{grid-template-columns:1fr}
+  .form-siatka{grid-template-columns:1fr}
+  .osoby,.osoby--2{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .listing{grid-template-columns:1fr}
+  /* podobne odmiany paskiem: trzy karty na 390 px robiły się nieczytelne,
+     a jedna pod drugą wypycha stopkę o ekran w dół */
+  .podobne .listing{
+    display:flex;grid-template-columns:none;overflow-x:auto;gap:var(--od-4);
+    scrollbar-width:none;margin-inline:0 calc(50% - 50vw);padding-inline:0 20px;
+  }
+  .podobne .listing::-webkit-scrollbar{display:none}
+  .podobne .listing > *{flex:0 0 216px}
+  /* kategorie jadą karuzelą przez cały kadr, a nie siatką na pół ekranu */
+  .kat-kafle{
+    flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;
+    gap:var(--od-5);scrollbar-width:none;
+    margin-inline:calc(50% - 50vw);max-width:100vw;
+    padding:var(--od-5) 20px var(--od-2);
+  }
+  .kat-kafle::-webkit-scrollbar{display:none}
+  .kat-kafel{width:92px}
+  .kat-kafel__kolo{width:80px;height:80px}
+  /* miniatury produktu też jako pasek: cztery kadry nie mieszczą się w rzędzie */
+  .galeria-p__minis{
+    display:flex;overflow-x:auto;gap:var(--od-3);scrollbar-width:none;
+    /* pasek zaczyna się w linii dużego zdjęcia, a wybiega tylko w prawo */
+    margin-inline:0 calc(50% - 50vw);padding-inline:0 20px;
+  }
+  .galeria-p__minis::-webkit-scrollbar{display:none}
+  .galeria-p__minis > *{flex:0 0 92px}
+}
+
+
+/* =============================================================================
+   17. DANA, KTÓREJ JESZCZE NIE ZNAMY
+   Liczba odmian w magazynie nie padła ani w briefie, ani w katalogu (katalog
+   PDF jest skanem bez warstwy tekstowej). Do etapu 4 stało w tym miejscu
+   dosłowne `[[?]]` z wireframe'u i wyświetlało się klientowi w prototypie.
+   Ta klasa mówi to samo, ale wygląda jak pusty stan, a nie jak literówka.
+   Wymiana na liczbę = podmiana treści, bez ruszania klasy.
+   ============================================================================= */
+.dana-czeka{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px dashed currentColor;border-radius:var(--r-pigulka);
+  padding:2px 10px;opacity:.72;
+  font-family:var(--f-mono);font-size:.92em;letter-spacing:.04em;
+}
+.dana-czeka::before{content:"?";font-weight:700}
+
+
+/* =============================================================================
+   18. DANE FIRMY
+   Blok adresowy na kontakcie. Do etapu 5 jechał na klasie .osoba-mini, choć
+   firma nie jest osobą: po przeniesieniu osób na okrągłe miniatury zostałby
+   bez własnego wyglądu. Osobna klasa, bo to osobna rzecz.
+   ============================================================================= */
+.dane-firmy{
+  background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
+  padding:var(--od-5) var(--od-6);margin:0 0 var(--od-5);
+}
+.dane-firmy h3{font-size:var(--fs-tytul-mini);color:var(--tekst-mocny);margin:0 0 var(--od-3)}
+.dane-firmy p{
+  margin:0 0 var(--od-1);font-family:var(--f-mono);font-size:var(--fs-mikro);
+  color:var(--tekst-cichy);line-height:1.6;
+}
+.dane-firmy a{color:inherit}
+.dane-firmy a:hover{color:var(--cta-tekst)}
+
+
+/* =============================================================================
+   19. TYPOGRAFIA BAZOWA I PRZYCISK
+   Przeniesione z `03 - Design/design.css` w etapie 5. Przycisk jest komponentem
+   systemu, więc nie może mieszkać w arkuszu jednej strony: dopóki tam siedział,
+   dokument style guide'u pokazywał go bez stylu, czyli dokumentował coś,
+   czego nie miał.
+   ============================================================================= */
+/* przyciski */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;padding:17px 34px;
+  font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+  border:0;cursor:pointer;transition:transform .15s ease,background .15s ease,color .15s ease;
+}
+.btn:active{transform:scale(.98)}
+.btn--nori{background:var(--nori);color:var(--krem)}
+.btn--nori:hover{background:var(--nori-2)}
+.btn--obrys{background:transparent;color:var(--grafit);box-shadow:inset 0 0 0 2px var(--grafit)}
+.btn--obrys:hover{background:var(--grafit);color:var(--krem)}
+.btn--akcent{background:var(--cta);color:#fff}
+.btn--akcent:hover{background:var(--cta-hover)}
+.btn--male{padding:13px 24px;font-size:13px}
+.btn--krem{background:var(--krem);color:var(--nori)}
+.btn--jasny{background:var(--krem);color:var(--nori)}
+.btn--jasny:hover{background:#fff}
+.btn--krem:hover{background:#fff}
+
+h1,h2,h3{margin:0;line-height:1.04;letter-spacing:-.02em}
+.tytul{font-weight:900;font-style:italic;text-transform:uppercase}
+/* nagłówek sekcji: kicker + tytuł */
+.sekcja-head{display:flex;flex-direction:column;gap:14px;margin-bottom:44px}
+.kicker{
+  font-family:var(--f-mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
+  display:flex;align-items:center;gap:12px;
+}
+
+
+/* =============================================================================
+   20. BLOK ZE ZDJĘCIEM W KOLUMNIE
+   Nazwa NIE brzmi `.kadr`: ta klasa jest zajęta przez przyklejony kadr slajdów
+   w sekcji kategorii na stronie głównej. Przed dodaniem klasy do tego pliku
+   sprawdź `grep -n "\.nazwa" "03 - Design/design.css"`, bo kolizja nie daje
+   błędu, tylko cicho miesza dwie rzeczy.
+   Zdjęcie jako element treści kolumny, nie jako tło sekcji. Ten sam promień
+   i ten sam cień co karta, więc siedzi w jednym języku z formularzem obok.
+   ============================================================================= */
+.foto-blok{
+  border-radius:var(--r-karta);overflow:hidden;box-shadow:var(--cien-lekki);
+  margin:0 0 var(--od-5);background:var(--tlo-2);
+}
+.foto-blok img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/9}
+.foto-blok--wysoki img{aspect-ratio:4/3}
+.foto-blok__podpis{
+  display:block;padding:var(--od-3) var(--od-4);
+  font-family:var(--f-mono);font-size:var(--fs-nano);letter-spacing:.06em;
+  color:var(--tekst-cichy);background:var(--tlo-karta);
+}
+
+
+/* =============================================================================
+   20. KOSZYK
+   Pozycja to karta na jasnym, taka sama jak w listingu i formularzu, więc nie
+   przybywa nowego kształtu. Ilość ma trzy cele dotykowe po 44 px, bo na
+   telefonie to najczęściej dotykany element całej strony.
+   Ceny są NETTO: to sklep dla browarów, VAT liczy się osobno w podsumowaniu.
+   ============================================================================= */
+.koszyk-uklad{
+  display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:var(--od-6);
+  align-items:start;padding-block:var(--od-7) var(--sekcja);
+}
+.koszyk-lista{margin:0;padding:0;list-style:none}
+.koszyk-poz{
+  /* pięć elementów, pięć kolumn: przy czterech „usuń" spadało do drugiego wiersza */
+  display:grid;grid-template-columns:88px minmax(0,1fr) auto auto auto;
+  gap:var(--od-5);align-items:center;
+  background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
+  padding:var(--od-4);
+}
+.koszyk-poz + .koszyk-poz{margin-top:var(--od-4)}
+.koszyk-poz__foto{
+  width:88px;height:88px;border-radius:var(--r-kafel);overflow:hidden;
+  background:var(--tlo-2);display:flex;align-items:center;justify-content:center;
+}
+.koszyk-poz__foto img{width:100%;height:100%;object-fit:cover}
+.koszyk-poz__nazwa{
+  font-family:var(--f-display);font-size:19px;font-weight:700;font-style:italic;
+  text-transform:uppercase;letter-spacing:-.01em;color:var(--tekst-mocny);
+  margin:0;text-decoration:none;display:inline-block;
+}
+a.koszyk-poz__nazwa:hover{color:var(--cta-tekst)}
+.koszyk-poz__meta{
+  margin:var(--od-2) 0 0;font-family:var(--f-mono);font-size:var(--fs-mikro);
+  color:var(--tekst-cichy);
+}
+.koszyk-poz__jedn{
+  margin:var(--od-1) 0 0;font-family:var(--f-mono);font-size:var(--fs-mikro);color:var(--tekst-cichy);
+}
+.koszyk-poz__suma{
+  font-family:var(--f-mono);font-size:17px;font-weight:700;color:var(--tekst-mocny);
+  white-space:nowrap;text-align:right;
+}
+.koszyk-poz__usun{
+  width:var(--cel-dotyk);height:var(--cel-dotyk);display:inline-flex;
+  align-items:center;justify-content:center;border:0;background:transparent;
+  border-radius:var(--r-pigulka);cursor:pointer;color:var(--tekst-cichy);
+  font-size:18px;line-height:1;transition:color .18s ease,background .18s ease;
+}
+.koszyk-poz__usun:hover{color:var(--cta-tekst);background:var(--tlo-2)}
+.koszyk-poz__usun:focus-visible{outline:2px solid var(--pierscien);outline-offset:2px}
+
+.licznik{
+  display:inline-flex;align-items:center;
+  box-shadow:inset 0 0 0 1px var(--linia);border-radius:var(--r-pigulka);overflow:hidden;
+}
+.licznik button{
+  min-width:var(--cel-dotyk);min-height:var(--cel-dotyk);border:0;background:transparent;
+  cursor:pointer;font-size:18px;line-height:1;color:var(--tekst);
+  transition:background .18s ease;
+}
+.licznik button:hover{background:var(--tlo-2)}
+.licznik button:focus-visible{outline:2px solid var(--pierscien);outline-offset:-2px}
+.licznik input{
+  width:46px;min-height:var(--cel-dotyk);border:0;background:transparent;text-align:center;
+  font-family:var(--f-mono);font-size:var(--fs-tekst);font-weight:700;color:var(--tekst);
+  -moz-appearance:textfield;
+}
+.licznik input::-webkit-outer-spin-button,
+.licznik input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.licznik input:focus-visible{outline:2px solid var(--pierscien);outline-offset:-2px}
+
+.podsumowanie{
+  background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
+  padding:var(--od-6);position:sticky;top:var(--od-5);
+}
+.podsumowanie h2{
+  font-family:var(--f-mono);font-size:var(--fs-nano);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tekst-cichy);margin:0 0 var(--od-4);font-weight:400;
+}
+.podsumowanie__wiersz{
+  display:flex;justify-content:space-between;align-items:baseline;gap:var(--od-4);
+  padding:var(--od-3) 0;border-bottom:1px solid var(--linia);font-size:var(--fs-tekst);
+}
+.podsumowanie__wiersz span:last-child{font-family:var(--f-mono);white-space:nowrap}
+.podsumowanie__razem{
+  display:flex;justify-content:space-between;align-items:baseline;gap:var(--od-4);
+  padding:var(--od-4) 0 var(--od-2);font-weight:700;
+}
+.podsumowanie__razem span:last-child{
+  font-family:var(--f-mono);font-size:22px;color:var(--tekst-mocny);white-space:nowrap;
+}
+.podsumowanie .btn{width:100%;justify-content:center;margin-top:var(--od-4)}
+.podsumowanie__wroc{
+  display:block;text-align:center;margin-top:var(--od-4);
+  font-family:var(--f-mono);font-size:var(--fs-mikro);color:var(--tekst-cichy);
+}
+.podsumowanie__nota{
+  margin:var(--od-4) 0 0;font-family:var(--f-mono);font-size:var(--fs-nano);
+  line-height:1.6;color:var(--tekst-cichy);
+}
+.koszyk-pusty{
+  background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
+  padding:var(--od-6);text-align:center;color:var(--tekst-cichy);
+  font-family:var(--f-mono);font-size:var(--fs-tekst);
+}
+.kod{display:flex;gap:var(--od-2);margin:0 0 var(--od-4)}
+.kod input{
+  flex:1 1 auto;min-width:0;min-height:var(--cel-dotyk);
+  padding:var(--od-3) var(--od-4);
+  background:var(--tlo-karta);border:1px solid var(--linia);border-radius:var(--r-kafel);
+  font:var(--fs-tekst) var(--f-display);color:var(--tekst);
+}
+.kod input:focus{outline:0;border-color:var(--pierscien);box-shadow:0 0 0 3px rgba(226,103,58,.28)}
+/* `width:100%` z przycisku kasy nie może zjeść pola na kod */
+.kod .btn{flex:0 0 auto;width:auto;padding:0 var(--od-4);min-height:var(--cel-dotyk)}
+
+/* akcja przypięta do dołu ekranu: koszyk i karta produktu używają tego samego
+   paska, więc jest jeden komponent, a nie dwa podobne */
+@media (max-width:560px){
+  .akcja-przypieta{
+    position:fixed;left:0;right:0;bottom:0;z-index:40;
+    background:var(--tlo);border-top:1px solid var(--linia);
+    padding:10px 20px calc(10px + env(safe-area-inset-bottom));
+    box-shadow:0 -6px 20px rgba(38,36,31,.12);
+  }
+  .akcja-przypieta .btn{width:100%;justify-content:center}
+  body:has(.akcja-przypieta){padding-bottom:84px}
+}
+@media (min-width:561px){
+  .akcja-przypieta{display:contents}
+}
+
+@media (max-width:960px){
+  .koszyk-uklad{grid-template-columns:1fr}
+  .podsumowanie{position:static}
+}
+@media (max-width:560px){
+  /* `display:contents` rozbija blok danych na osobne pola siatki: opis
+     i cena jednostkowa dostają całą szerokość karty zamiast kolumny 170 px,
+     w której łamały się co dwa słowa */
+  .koszyk-poz{
+    grid-template-columns:64px minmax(0,1fr) var(--cel-dotyk);
+    grid-template-areas:
+      "foto nazwa usun"
+      "meta meta meta"
+      "jedn jedn jedn"
+      "licznik suma suma";
+    gap:var(--od-2) var(--od-4);align-items:center;
+    padding:var(--od-4) var(--od-4) var(--od-3);
+  }
+  .koszyk-poz__dane{display:contents}
+  .koszyk-poz__foto{grid-area:foto;width:64px;height:64px}
+  .koszyk-poz__nazwa{grid-area:nazwa;font-size:17px}
+  .koszyk-poz__meta{grid-area:meta;margin-top:var(--od-2)}
+  .koszyk-poz__jedn{grid-area:jedn}
+  .koszyk-poz__usun{grid-area:usun;justify-self:end}
+  .koszyk-poz .licznik{grid-area:licznik;justify-self:start;margin-top:var(--od-3)}
+  .koszyk-poz__suma{grid-area:suma;margin-top:var(--od-3)}
+}
