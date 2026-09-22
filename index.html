@@ -28,8 +28,10 @@
       <a class="panel__poz" href="sklep.html">PRODUKTY<sup>03</sup></a>
       <a class="panel__poz" href="b2b.html">STREFA B2B<sup>04</sup></a>
       <a class="panel__poz" href="index.html#zespol">ZESPÓŁ<sup>05</sup></a>
-      <a class="panel__poz" href="kontakt.html">KONTAKT<sup>06</sup></a>
-      <a class="panel__poz" href="koszyk.html">KOSZYK<sup>05</sup></a>
+      <a class="panel__poz" href="blog.html">BLOG<sup>06</sup></a>
+      <a class="panel__poz" href="faq.html">FAQ<sup>07</sup></a>
+      <a class="panel__poz" href="kontakt.html">KONTAKT<sup>08</sup></a>
+      <a class="panel__poz" href="koszyk.html">KOSZYK<sup>09</sup></a>
     </nav>
     <div class="panel__stopka">
       <span class="panel__etykieta">Kontakt</span>
@@ -84,7 +86,26 @@
 </div>
 
 <section class="hero">
-  <video class="hero__wideo" src="media/hero-zasyp.mp4" poster="media/pr-zasyp.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+  <!-- Pętla z pokazu NZ Hops „The Originators” (materiał od dostawcy, 22.09): siedem ujęć, 10,6 s,
+       podpisy farm wycięte kadrem od dołu. Plik wybiera skrypt poniżej, zanim cokolwiek się pobierze,
+       więc telefon ściąga tylko pion 540p. Stara pętla: media/hero-zasyp.mp4. -->
+  <video class="hero__wideo" poster="media/hero-plantacja-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true"
+         data-desktop="media/hero-plantacja_1080p.mp4" data-mobile="media/hero-plantacja-mobile_540p.mp4"
+         data-poster-mobile="media/hero-plantacja-poster-mobile.jpg"></video>
+  <script>
+  (function () {
+    var v = document.currentScript.previousElementSibling;
+    var telefon = matchMedia('(max-width: 767px)').matches;
+    if (telefon) v.poster = v.dataset.posterMobile;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // zostaje sam plakat
+    v.src = telefon ? v.dataset.mobile : v.dataset.desktop;
+    v.play().catch(function () {});
+    // poza kadrem pętla stoi, żeby nie zjadać baterii i procesora
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (w) {
+      w[0].isIntersecting ? v.play().catch(function () {}) : v.pause();
+    }, { threshold: 0.01 }).observe(v);
+  })();
+  </script>
   <div class="hero__grad" aria-hidden="true"></div>
   <div class="hero__blok">
     <div class="hero__znak">
@@ -102,7 +123,7 @@
 
 <section class="polecane" id="polecane">
   <div class="wrap">
-    <div class="sekcja-head">
+    <div class="sekcja-head sekcja-head--srodek polecane__head">
       <div>
         <p class="kicker">Polecane produkty</p>
         <h2 class="tytul" style="margin-top:14px"><span class="marker"><span class="marker__tresc">Koniecznie <span class="cien">wypróbuj!</span></span></span></h2>
@@ -169,45 +190,51 @@
   </div>
 </section>
 
-<section class="kategorie kategorie--slajdy" id="kategorie" aria-label="Kategorie produktów">
+<!-- Kategorie w wersji 1 z opcji obrazowych (docs/kategorie-opcje/o1): cztery karty na zieleni.
+     Zdjęcia wygenerował Codex ImageGen jako zastępstwo (22.09). -->
+<section class="kategorie kategorie--karty" id="kategorie" aria-label="Kategorie produktów">
   <div class="wrap">
-    <p class="kicker kicker--akcent">Sklep</p>
-    <h2 class="tytul kategorie__tytul">Granulat Chmielu, Drożdże, Hopzoil, Enzymy</h2>
-    <div class="slajdy">
-      <div class="slajdy__tekst">
-        <article class="slajd tu" data-nr="0">
-          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#6CB33F">Granulat</span><br>chmielu.</h3>
-          <p class="slajd__opis">Wszystkie chmiele można również zamawiać za pomocą formularza kontraktowego.</p>
-          <p class="slajd__dana">chmiele z topowych kierunków</p>
-          <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
-        </article>
-        <article class="slajd" data-nr="1">
-          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#B5AF5C">Drożdże</span><br>WHC Lab.</h3>
-          <p class="slajd__opis">Od lagerów po NEIPA i kveiki.</p>
-          <p class="slajd__dana">opakowania 500 g</p>
-          <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
-        </article>
-        <article class="slajd" data-nr="2">
-          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#D3A45F">Hopzoil</span></h3>
-          <p class="slajd__opis">Oleje destylowane ze świeżych szyszek. Alternatywa dla pelletu w dry hoppingu.</p>
-          <p class="slajd__dana">olej z chmielu</p>
-          <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
-        </article>
-        <article class="slajd" data-nr="3">
-          <h3 class="slajd__tytul"><span class="slajd__slowo" style="color:#5C9B8E">Enzymy</span><br>i środki procesowe.</h3>
-          <p class="slajd__opis">Dodatki funkcjonalne i preparaty enzymatyczne.</p>
-          <p class="slajd__dana">6 preparatów</p>
-          <a class="btn btn--jasny btn--male" href="sklep.html">Zobacz w sklepie</a>
-        </article>
-      </div>
-      <div class="slajdy__kadr">
-        <div class="kadr" style="--kolor:#6CB33F">
-          <div class="kadr__warstwa tu" data-nr="0" data-kolor="#6CB33F"><img src="media/pr-qc.jpg" alt="Granulat chmielu na tacy przy kartonie HOPit" loading="lazy" width="1200" height="1500"></div>
-          <div class="kadr__warstwa" data-nr="1" data-kolor="#B5AF5C"><img src="media/pr-sensoryka.jpg" alt="Piwo, butelki i szyszki chmielu" loading="lazy" width="1200" height="1500"></div>
-          <div class="kadr__warstwa" data-nr="2" data-kolor="#D3A45F"><img src="media/pr-hopzoil-lab.jpg" alt="Fiolki Hopzoil w walizce" loading="lazy" width="1200" height="1500"></div>
-          <div class="kadr__warstwa" data-nr="3" data-kolor="#5C9B8E"><img src="media/pr-probki.jpg" alt="Próbki i dozowanie preparatów" loading="lazy" width="1200" height="1500"></div>
+    <div class="sekcja-head sekcja-head--srodek">
+      <p class="kicker">Sklep</p>
+      <h2 class="tytul">Granulat Chmielu, Drożdże,<br> Hopzoil, Enzymy</h2>
+    </div>
+    <div class="kat-karty">
+      <article class="kat-karta">
+        <div class="kat-karta__foto"><img src="media/kategorie/kat-granulat.jpg" alt="Misa granulatu chmielu na tle plantacji" loading="lazy" width="800" height="1200"></div>
+        <div class="kat-karta__tresc">
+          <h3 class="tytul kat-karta__nazwa">Granulat chmielu</h3>
+          <p class="kat-karta__opis">Wszystkie chmiele można również zamawiać za pomocą formularza kontraktowego.</p>
+          <p class="kat-karta__dana">chmiele z topowych kierunków</p>
+          <a class="btn btn--obrys kat-karta__btn" href="sklep.html">Zobacz w sklepie</a>
         </div>
-      </div>
+      </article>
+      <article class="kat-karta">
+        <div class="kat-karta__foto"><img src="media/kategorie/kat-drozdze.jpg" alt="Torebka suszonych drożdży na blacie browaru" loading="lazy" width="800" height="1200"></div>
+        <div class="kat-karta__tresc">
+          <h3 class="tytul kat-karta__nazwa">Drożdże WHC Lab</h3>
+          <p class="kat-karta__opis">Od lagerów po NEIPA i kveiki.</p>
+          <p class="kat-karta__dana">opakowania 500 g</p>
+          <a class="btn btn--obrys kat-karta__btn" href="sklep.html">Zobacz w sklepie</a>
+        </div>
+      </article>
+      <article class="kat-karta">
+        <div class="kat-karta__foto"><img src="media/kategorie/kat-hopzoil.jpg" alt="Fiolki olejku chmielowego przy świeżych szyszkach" loading="lazy" width="800" height="1200"></div>
+        <div class="kat-karta__tresc">
+          <h3 class="tytul kat-karta__nazwa">Hopzoil</h3>
+          <p class="kat-karta__opis">Oleje destylowane ze świeżych szyszek. Alternatywa dla pelletu w dry hoppingu.</p>
+          <p class="kat-karta__dana">olej z chmielu</p>
+          <a class="btn btn--obrys kat-karta__btn" href="sklep.html">Zobacz w sklepie</a>
+        </div>
+      </article>
+      <article class="kat-karta">
+        <div class="kat-karta__foto"><img src="media/kategorie/kat-enzymy.jpg" alt="Szkło laboratoryjne z preparatami w laboratorium browaru" loading="lazy" width="800" height="1200"></div>
+        <div class="kat-karta__tresc">
+          <h3 class="tytul kat-karta__nazwa">Enzymy i środki procesowe</h3>
+          <p class="kat-karta__opis">Dodatki funkcjonalne i preparaty enzymatyczne.</p>
+          <p class="kat-karta__dana">6 preparatów</p>
+          <a class="btn btn--obrys kat-karta__btn" href="sklep.html">Zobacz w sklepie</a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -268,6 +295,105 @@
   </div>
 </section>
 
+<section class="sekcja-nowa" id="wiedza">
+  <div class="wrap">
+    <div class="sekcja-head sekcja-head--srodek">
+      <p class="kicker">Wiedza</p>
+      <h2 class="tytul">Artykuły</h2>
+    </div>
+    <ul class="wpisy">
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-01.jpg" alt="Piwowar wsypuje granulat chmielu do tanka fermentacyjnego" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Warzenie</p>
+            <h3 class="wpis__tytul">Dry hopping: kiedy dodać chmiel na zimno</h3>
+            <p class="wpis__lead">Moment dodania chmielu zmienia aromat piwa i ryzyko utlenienia. Porządkujemy, czym różni się chmielenie w trakcie fermentacji od chmielenia po jej zakończeniu.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-02.jpg" alt="Próżniowe worki z granulatem chmielu w chłodni" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Magazyn</p>
+            <h3 class="wpis__tytul">Jak przechowywać granulat chmielu</h3>
+            <p class="wpis__lead">Tlen, ciepło i światło odbierają chmielowi aromat. Podpowiadamy, co zrobić z zamkniętym i z otwartym workiem, żeby granulat długo trzymał swoje parametry.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-03.jpg" alt="Rzędy pnączy chmielu na plantacji" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Uprawa</p>
+            <h3 class="wpis__tytul">Rocznik chmielu: na co patrzeć przy zakupie</h3>
+            <p class="wpis__lead">Ta sama odmiana z dwóch zbiorów potrafi pachnieć inaczej. Tłumaczymy, jak czytać rocznik i parametry partii podane w karcie produktu.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <p class="przyklad-nota">Przykładowe wpisy pokazujące układ bloga. Tematy i treści do akceptacji HOPit.</p>
+    <p class="sekcja-nowa__dalej"><a class="btn btn--obrys" href="blog.html">Wszystkie artykuły</a></p>
+  </div>
+</section>
+
+<section class="sekcja-nowa sekcja-nowa--jasna" id="faq">
+  <div class="wrap">
+    <div class="sekcja-head sekcja-head--srodek">
+      <p class="kicker">FAQ</p>
+      <h2 class="tytul">Najczęstsze pytania</h2>
+    </div>
+    <div class="faq">
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Czy ceny w sklepie są podane netto?</summary>
+        <div class="faq__odp"><p>Tak. Sprzedajemy browarom, dlatego przy produktach podajemy ceny netto. Podatek VAT doliczamy w podsumowaniu koszyka.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Jak zamówić większą ilość chmielu?</summary>
+        <div class="faq__odp"><p>Wypełnij <a href="b2b.html#formularz">formularz kontraktowy</a> w strefie B2B. Powiedz nam, ile chmielu potrzebujesz, a wrócimy do Ciebie z&nbsp;indywidualną ofertą. Kontrakt to gwarancja atrakcyjnej ceny i&nbsp;pewnej dostawy.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Jak przechowywać granulat chmielu?</summary>
+        <div class="faq__odp"><p>Granulat wysyłamy zapakowany próżniowo. Przechowuj go w&nbsp;temperaturze do 5°C, w&nbsp;suchym miejscu. Więcej piszemy w&nbsp;<a href="artykul.html">artykule o&nbsp;przechowywaniu chmielu</a>.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Czy wysyłacie do innych krajów?</summary>
+        <div class="faq__odp"><p>Tak, dostarczamy do browarów w&nbsp;całej Europie. Koszt i&nbsp;czas dostawy: <span class="dana-czeka">cennik dostaw od HOPit</span></p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Skąd pochodzą wasze chmiele?</summary>
+        <div class="faq__odp"><p>Kupujemy u&nbsp;<a href="dostawcy.html">dziewięciu producentów</a> z&nbsp;Nowej Zelandii, Stanów Zjednoczonych, Polski, Czech, Niemiec, Wielkiej Brytanii i&nbsp;Słowenii.</p></div>
+      </details>
+    </div>
+    <p class="przyklad-nota">Przykładowe pytania i odpowiedzi do akceptacji HOPit. Pola oznaczone znakiem zapytania czekają na dane.</p>
+    <p class="sekcja-nowa__dalej"><a class="btn btn--obrys" href="faq.html">Wszystkie pytania</a></p>
+  </div>
+</section>
+
+<!-- Instagram: zdjęcia pobrane 22.09 z publicznego profilu @hopit.pl (źródła postów w
+     media/instagram/_zrodla.json). We wdrożeniu kafle zasila kanał z profilu na żywo
+     (widżet albo Instagram Graph API), format 4:5 jak na samym Instagramie. -->
+<section class="sekcja-nowa" id="instagram">
+  <div class="wrap">
+    <div class="sekcja-head sekcja-head--srodek">
+      <p class="kicker">Instagram</p>
+      <h2 class="tytul"><a href="https://www.instagram.com/hopit.pl/" target="_blank" rel="noopener">@hopit.pl</a></h2>
+    </div>
+    <div class="insta">
+      <a href="https://www.instagram.com/p/DbvHDZAjEgM/" target="_blank" rel="noopener"><img src="media/instagram/ig-01.jpg" alt="Post HOPit na Instagramie z 7 sierpnia 2026" loading="lazy" width="512" height="640"></a>
+      <a href="https://www.instagram.com/p/DdjOmv-jM-h/" target="_blank" rel="noopener"><img src="media/instagram/ig-02.jpg" alt="Post HOPit na Instagramie z 21 września 2026" loading="lazy" width="512" height="640"></a>
+      <a href="https://www.instagram.com/p/Dc3l7EMsmgs/" target="_blank" rel="noopener"><img src="media/instagram/ig-03.jpg" alt="Post HOPit na Instagramie z 4 września 2026" loading="lazy" width="512" height="640"></a>
+      <a href="https://www.instagram.com/p/Dcvlj-JDD6g/" target="_blank" rel="noopener"><img src="media/instagram/ig-04.jpg" alt="Post HOPit na Instagramie z 1 września 2026" loading="lazy" width="512" height="640"></a>
+      <a href="https://www.instagram.com/p/DcbBupYMl-V/" target="_blank" rel="noopener"><img src="media/instagram/ig-05.jpg" alt="Post HOPit na Instagramie z 24 sierpnia 2026" loading="lazy" width="512" height="640"></a>
+      <a href="https://www.instagram.com/p/DcA17EYihdb/" target="_blank" rel="noopener"><img src="media/instagram/ig-06.jpg" alt="Post HOPit na Instagramie z 14 sierpnia 2026" loading="lazy" width="512" height="640"></a>
+    </div>
+  </div>
+</section>
+
 <footer class="stopka" id="kontakt">
   <div class="wrap">
     <div class="stopka__siatka">
@@ -276,6 +402,10 @@
         <span class="stopka__szare">ul. Kruszcowa 4, 41-902 Bytom</span>
         <span class="stopka__mono">info@hopit.pl</span>
         <span class="stopka__mono">+48 536 763 341 · +48 606 453 641</span>
+        <div class="social" aria-label="HOPit w mediach społecznościowych">
+          <a href="https://www.facebook.com/HOPit.Poland" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.2h2.4l.4-2.9h-2.8V9.1c0-.8.3-1.4 1.4-1.4h1.5V5.1c-.3 0-1.1-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.1H8v2.9h2.5V21h3Z"/></svg></a>
+          <a href="https://www.instagram.com/hopit.pl/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+        </div>
       </div>
       <div class="stopka__kol">
         <span class="stopka__naglowek">MENU</span>
@@ -283,6 +413,8 @@
         <a href="sklep.html">Sklep</a>
         <a href="b2b.html">Strefa B2B</a>
         <a href="#zespol">Zespół</a>
+        <a href="blog.html">Blog</a>
+        <a href="faq.html">FAQ</a>
         <a href="kontakt.html">Kontakt</a>
         <a href="oferta.pdf" target="_blank" rel="noopener">Cała oferta (PDF)</a>
       </div>
@@ -308,7 +440,6 @@
     document.querySelectorAll("video.hero__kadr, video.hero__wideo").forEach(function(v){ v.removeAttribute("autoplay"); v.pause(); });
   }
 </script>
-<script src="slajdy.js"></script>
 <script src="fizyka.js"></script>
 <script src="opinie.js"></script>
 <nav class="appbar" aria-label="Skróty">

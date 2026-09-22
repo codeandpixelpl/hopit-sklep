@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nectaron: granulat chmielu | HOPit</title>
+<title>FAQ | HOPit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,900;1,700;1,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -37,8 +37,8 @@
     <div class="wrap">
       <a class="znak" href="index.html" aria-label="HOPit, strona główna"><img class="logo__znak" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152"></a>
       <form class="szukaj" role="search" action="sklep.html" autocomplete="off">
-        <label class="szukaj__etykieta" for="szukaj-2">Szukaj w sklepie</label>
-        <input class="szukaj__pole" id="szukaj-2" type="search" name="q"
+        <label class="szukaj__etykieta" for="szukaj-6">Szukaj w sklepie</label>
+        <input class="szukaj__pole" id="szukaj-6" type="search" name="q"
                placeholder="Szukaj odmiany, aromatu, kraju…" aria-describedby="szukaj-podpowiedz">
         <button class="szukaj__lupa" type="submit" aria-label="Szukaj">
           <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="13" y1="13" x2="18" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -82,90 +82,63 @@
   </div>
 </div>
 
-<div class="pas-okruszki">
-  <div class="wrap"><div class="okruszki okruszki--jasne"><a href="index.html">Home</a> › <a href="sklep.html">Granulat chmielu</a> › <span>Nectaron</span></div></div>
-</div>
+<section class="pas-naglowek pas-naglowek--uzytkowy">
+  <div class="wrap">
+    <div class="okruszki okruszki--jasne"><a href="index.html">Home</a> › <span>FAQ</span></div>
+    <p class="kicker">FAQ</p>
+    <h1 class="tytul"><span class="marker"><span class="marker__tresc">Najczęstsze pytania</span></span></h1>
+  </div>
+</section>
 
-<div class="wrap produkt">
-  <div class="galeria-p" data-galeria>
-    <div class="galeria-p__glowne"><img src="assets/mini-szyszki.jpg" alt="Szyszki chmielu Nectaron"></div>
-    <div class="galeria-p__minis" role="group" aria-label="Kadry produktu">
-      <button type="button" aria-current="true" data-duze="assets/mini-szyszki.jpg" data-opis="Szyszki chmielu Nectaron"><img src="assets/mini-szyszki.jpg" alt="Szyszki chmielu Nectaron"></button>
-      <button type="button" data-duze="assets/granulat-makro.jpg" data-opis="Granulat chmielu w powiększeniu"><img src="assets/granulat-makro.jpg" alt="Granulat chmielu w powiększeniu"></button>
-      <button type="button" data-duze="assets/szyszki-makro.jpg" data-opis="Szyszka chmielu w powiększeniu"><img src="assets/szyszki-makro.jpg" alt="Szyszka chmielu w powiększeniu"></button>
-      <button type="button" data-duze="assets/stos-kartonow.jpg" data-opis="Kartony HOPit"><img src="assets/stos-kartonow.jpg" alt="Kartony HOPit"></button>
+<!-- FAQ: po dostaniu treści od klienta dołożyć dane strukturalne FAQPage (JSON-LD),
+     bo to one dają wyniki rozszerzone w Google, o które chodzi w „do pozycjonowania”. -->
+<section class="sekcja-nowa">
+  <div class="wrap">
+    <div class="faq">
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Czy ceny w sklepie są podane netto?</summary>
+        <div class="faq__odp"><p>Tak. Sprzedajemy browarom, dlatego przy produktach podajemy ceny netto. Podatek VAT doliczamy w podsumowaniu koszyka.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Jak zamówić większą ilość chmielu?</summary>
+        <div class="faq__odp"><p>Wypełnij <a href="b2b.html#formularz">formularz kontraktowy</a> w strefie B2B. Powiedz nam, ile chmielu potrzebujesz, a wrócimy do Ciebie z&nbsp;indywidualną ofertą. Kontrakt to gwarancja atrakcyjnej ceny i&nbsp;pewnej dostawy.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Jak przechowywać granulat chmielu?</summary>
+        <div class="faq__odp"><p>Granulat wysyłamy zapakowany próżniowo. Przechowuj go w&nbsp;temperaturze do 5°C, w&nbsp;suchym miejscu. Więcej piszemy w&nbsp;<a href="artykul.html">artykule o&nbsp;przechowywaniu chmielu</a>.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Czy wysyłacie do innych krajów?</summary>
+        <div class="faq__odp"><p>Tak, dostarczamy do browarów w&nbsp;całej Europie. Koszt i&nbsp;czas dostawy: <span class="dana-czeka">cennik dostaw od HOPit</span></p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Skąd pochodzą wasze chmiele?</summary>
+        <div class="faq__odp"><p>Kupujemy u&nbsp;<a href="dostawcy.html">dziewięciu producentów</a> z&nbsp;Nowej Zelandii, Stanów Zjednoczonych, Polski, Czech, Niemiec, Wielkiej Brytanii i&nbsp;Słowenii.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Co oznacza rocznik przy odmianie?</summary>
+        <div class="faq__odp"><p>To rok zbioru chmielu. W&nbsp;karcie każdego produktu podajemy rocznik oraz zawartość alfa-kwasów aktualnej partii, bo ta sama odmiana z&nbsp;różnych zbiorów ma różne parametry.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Czy wystawiacie faktury VAT?</summary>
+        <div class="faq__odp"><p>Tak, do każdego zamówienia. Dane firmy i&nbsp;NIP podajesz przy składaniu zamówienia.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Czym jest Hopzoil?</summary>
+        <div class="faq__odp"><p>To oleje destylowane ze świeżych szyszek chmielu, alternatywa dla pelletu w&nbsp;dry hoppingu. Znajdziesz je w&nbsp;<a href="sklep.html">sklepie</a> w&nbsp;kategorii Hopzoil.</p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Ile kosztuje dostawa?</summary>
+        <div class="faq__odp"><p>Koszt zależy od wagi i&nbsp;kraju dostawy: <span class="dana-czeka">cennik dostaw od HOPit</span></p></div>
+      </details>
+      <details class="faq__poz">
+        <summary class="faq__pytanie">Jak zwrócić towar?</summary>
+        <div class="faq__odp"><p>Zasady zwrotów opisuje <a href="#">polityka zwrotów</a>. W&nbsp;razie pytań napisz na <a href="mailto:info@hopit.pl">info@hopit.pl</a>.</p></div>
+      </details>
     </div>
+    <p class="przyklad-nota">Przykładowe pytania i odpowiedzi do akceptacji HOPit. Pola oznaczone znakiem zapytania czekają na dane.</p>
   </div>
-
-  <div class="produkt__info">
-    <p class="kicker" style="color:var(--tekst-2)">Nowa Zelandia · granulat</p>
-    <h1 class="tytul" style="margin-top:12px">Nectaron</h1>
-    <p class="produkt__cena">149,00 – 695,00 zł netto</p>
-    <p class="produkt__dostepnosc">Produkt dostępny w sklepie</p>
-
-    <table class="parametry">
-      <tr><th>ALFA KWASY</th><td>10–12</td></tr>
-      <tr><th>BETA KWASY</th><td>4–5</td></tr>
-      <tr><th>KOHUMULON</th><td>26–28</td></tr>
-      <tr><th>OLEJKI</th><td>1,7 ml/100 g</td></tr>
-      <tr><th>ZAW. A-KWASÓW AKTUALNEJ PARTII</th><td>13,6</td></tr>
-      <tr><th>ZASTOSOWANIE</th><td>IPA, NEIPA</td></tr>
-      <tr><th>AROMAT</th><td>ananas, marakuja, brzoskwinia</td></tr>
-    </table>
-
-    <form>
-      <div class="form-siatka">
-        <div class="pole">
-          <label for="rocznik">Rocznik</label>
-          <select id="rocznik"><option>2026</option></select>
-        </div>
-        <div class="pole">
-          <label for="ilosc">Ilość</label>
-          <select id="ilosc"><option>1 kg</option><option>5 kg</option></select>
-        </div>
-      </div>
-      <div class="produkt__akcje">
-        <div class="akcja-przypieta"><button class="btn btn--akcent" type="button">Dodaj do koszyka</button></div>
-        <a class="btn btn--obrys" href="b2b.html#formularz">Zapytaj o wolumen B2B</a>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="wrap produkt__opis">
-  <h2 class="tytul">Opis produktu</h2>
-  <p>NZ Hops opracował nowofalową odmianę razem z&nbsp;Plant &amp; Food Research pod batutą Rona Beatsona. Nektar bogów (bo tak nazywają go nowozelandczycy) stworzony przez Rona to NectaRon! Wysoki poziom nut tropikalnych: ananas, marakuja oraz brzoskwinia i&nbsp;grapefruit sprawia, że ten chmiel aż bucha owocami! Nectaron to synteza Nauki, Sztuki, Mistrzostwa i&nbsp;Tajemnicy. Totalnie genialna nowozelandzka odmiana!</p>
-  <p><b>Skład:</b> 100% granulat</p>
-  <p><b>Ważne informacje:</b> kupiony przez Was granulat chmielu jest zapakowany próżniowo, dzięki czemu możecie cieszyć się dłużej jego wyjątkowymi właściwościami. Granulat chmielu należy przechowywać w&nbsp;temperaturze do 5°C w&nbsp;suchym miejscu.</p>
-  <p class="hasztagi">#NECTARON #NZ #CHMIEL #GRANULAT</p>
-</div>
-
-<div class="wrap podobne">
-  <p class="kicker" style="color:var(--tekst-2)">W magazynie</p>
-  <h2 class="tytul" style="margin-top:12px">Podobne odmiany</h2>
-  <div class="listing">
-    <article class="prod-k">
-      <div class="prod-k__foto"><img src="assets/mini-granulat.jpg" alt="" loading="lazy"></div>
-      <h3 class="tytul prod-k__nazwa">Amarillo</h3>
-      <p class="prod-k__cena">149,00 – 695,00 zł netto</p>
-      <a class="btn btn--obrys btn--male" href="#">Wybierz opcje</a>
-    </article>
-    <article class="prod-k">
-      <div class="prod-k__foto"><img src="assets/mini-szyszki.jpg" alt="" loading="lazy"></div>
-      <h3 class="tytul prod-k__nazwa">Azacca</h3>
-      <p class="prod-k__cena">129,00 – 595,00 zł netto</p>
-      <a class="btn btn--obrys btn--male" href="#">Wybierz opcje</a>
-    </article>
-    <article class="prod-k">
-      <span class="prod-k__badge">PROMOCJA</span>
-      <div class="prod-k__foto"><img src="assets/mini-granulat.jpg" alt="" loading="lazy"></div>
-      <h3 class="tytul prod-k__nazwa">Belma</h3>
-      <p class="prod-k__cena">95,00 – 109,00 zł netto</p>
-      <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
-      <a class="btn btn--obrys btn--male" href="#">Wybierz opcje</a>
-    </article>
-  </div>
-</div>
+</section>
 
 <footer class="stopka">
   <div class="wrap">
@@ -209,7 +182,6 @@
   </div>
 </footer>
 
-<script src="produkt.js"></script>
 <nav class="appbar" aria-label="Skróty">
   <a class="appbar__poz" href="sklep.html">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16l-1.2 12.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8L4 7Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 7V5.6a3.5 3.5 0 0 1 7 0V7" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
