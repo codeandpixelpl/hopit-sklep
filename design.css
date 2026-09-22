@@ -889,12 +889,16 @@ table.parametry th{background:var(--krem-2);font-weight:600;width:46%;font-famil
   border-left:1px solid #3B382F;text-decoration:none;transition:color .15s,background .15s;
 }
 .topbar__poz--domyka{border-right:1px solid #3B382F}
+/* działy przeniesione z hero do paska (uwaga klienta z 16.09, wzorzec whclab.com):
+   O nas, Nasi Dostawcy i Strefa B2B siedzą w pasku, na środku hero zostaje SKLEP */
+.topbar__grupa--dzialy .topbar__poz{color:var(--krem);letter-spacing:1px}
+.topbar__grupa--dzialy .topbar__poz:hover{color:var(--akcent);background:#2E2B25}
 .topbar__poz--mocny,.topbar__tel{color:var(--krem);font-weight:700}
 a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
 .topbar__ikona{width:17.08px;height:17.08px;opacity:.2;display:block}
 
 .naw{
-  position:sticky;top:0;z-index:60;height:102px;display:flex;align-items:center;
+  position:relative;height:var(--naw-h);display:flex;align-items:center;
   background:transparent;border-bottom:0;
 }
 .naw .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;padding:0 28px;width:100%}
@@ -925,10 +929,39 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
 .hero{
   position:relative;height:50.573vw;min-height:640px;background:var(--grafit);
   border-bottom:2px solid var(--linia-mocna);overflow:hidden;
+  /* belka stoi nad kadrem, nie obok niego: sekcja wraca na swoje miejsce z Figmy */
+  margin-top:calc(-1 * var(--belka-h));
 }
-/* w Figmie topbar i nagłówek leżą wewnątrz sekcji, nad wideo */
-.hero > .topbar,.hero > .naw{position:relative;z-index:5}
-.hero > .naw{position:relative}
+/* ---- belka: pasek górny + nawigacja, nieruchoma na całej stronie ----
+   Uwaga klienta z 16.09: „górną część na głównej zrobiłbym nieruchomą".
+   W Figmie topbar i nagłówek leżały WEWNĄTRZ sekcji hero, nad wideo. Sekcja ma
+   `overflow:hidden` (bez niego rozjeżdża się przyklejony kadr slajdów), a każdy
+   overflow inny niż visible gasi `position:sticky` potomka. Dlatego belka wyszła
+   z hero i stoi przed nią, a hero wraca pod nią ujemnym marginesem o zmierzonej
+   wysokości belki. Kadr wideo zajmuje więc dokładnie te same piksele co wcześniej.
+   Tło dostaje dopiero po zejściu z hero: klasę `belka--przypieta` przełącza
+   `nawigacja.js` obserwatorem na czujniku pod belką. */
+.belka{position:sticky;top:0;z-index:70}
+.belka--hero{background:transparent}
+.belka--hero .naw{background:transparent;border-bottom:0}
+.belka--hero.belka--przypieta{
+  background:color-mix(in srgb, var(--krem) 94%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:2px solid var(--linia-mocna);
+  box-shadow:0 10px 26px rgba(38,36,31,.12);
+}
+/* przypięta belka jest jasna, więc znak, koszyk i menu muszą zejść z bieli */
+.belka--przypieta .koszyk,.belka--przypieta .wyzwalacz{color:var(--grafit)}
+.belka--przypieta .wyzwalacz__kreski::before,
+.belka--przypieta .wyzwalacz__kreski::after{background:var(--grafit)}
+/* pasek górny na kremie: ciemne tło zostaje, ale traci pełną szerokość cienia */
+.belka--przypieta .topbar{border-bottom:0}
+/* po przypięciu belka zjeżdża w dół, zamiast pojawiać się skokiem */
+@media (prefers-reduced-motion: no-preference){
+  .belka--hero.belka--przypieta{animation:belka-zjazd .24s cubic-bezier(.7,0,.2,1)}
+  @keyframes belka-zjazd{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+}
+.belka__czujnik{height:1px;margin-top:-1px}
 .hero__wideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .hero__grad{
   position:absolute;inset:0;
@@ -966,7 +999,7 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
   /* topbar i nagłówek siedzą w sekcji, więc padding musi wejść na blok, nie na sekcję */
   .hero{height:auto;min-height:0;padding:0 0 56px}
   /* static rysowałby blok POD pozycjonowanym wideo, stąd relative + z-index */
-  .hero__blok{position:relative;z-index:2;left:auto;top:auto;transform:none;width:100%;padding:0 20px;gap:30px;margin-top:44px}
+  .hero__blok{position:relative;z-index:2;left:auto;top:auto;transform:none;width:100%;padding:0 20px;gap:30px;margin-top:calc(44px + var(--belka-h))}
   .hn{font-size:15.4vw}
   .hero__napisy{padding-top:50%}
   .hero__dol{width:100%;max-width:434px;margin:0 auto}
@@ -988,10 +1021,11 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
   .wyzwalacz{font-size:11px;letter-spacing:1.4px}
 }
 
-/* nawigacja na podstronach: bez zdjęcia pod spodem, więc jasna i przyklejona */
+/* nawigacja na podstronach: bez zdjęcia pod spodem, więc jasna.
+   Przyklejenie przejęła .belka, tutaj zostaje samo tło i granica. */
 .naw--jasna{
-  position:sticky;top:0;z-index:60;
   background:color-mix(in srgb, var(--krem) 92%, transparent);
+  backdrop-filter:blur(8px);
   border-bottom:2px solid var(--linia-mocna);
 }
 /* selektor zbiorczy zniknął przy sprzątaniu reguł rysowanego logotypu,
@@ -1002,6 +1036,11 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
 /* na wąskim ekranie pasek górny znika, a przycisk menu rośnie do celu dotykowego */
 @media (max-width:900px){
   .topbar{display:none}
+  /* bez paska górnego belka to sama nawigacja: 114 px, zmierzone w przeglądarce */
+  :root{--belka-h:114px}
+  /* pole szukania nie mieści się w belce obok znaku; wchodzi nakładką
+     z dolnego paska skrótów (komponent `.szukajka`) */
+  .naw .szukaj{display:none}
   /* jeden krój po prawej: mono przy Archivo rozjeżdżało się optycznie */
   .koszyk,.wyzwalacz{
     font-family:var(--f-display);font-weight:500;font-size:15px;
@@ -1074,6 +1113,16 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
 @media (max-width:560px){
   .hero__odnosniki a{height:44px;padding:0 16px;font-size:12px}
 }
+/* po przeniesieniu działów do paska zostaje jedna droga: do sklepu.
+   Przycisk rośnie, bo nie konkuruje już z trzema sąsiadami. */
+.hero__odnosniki--jeden a{
+  height:60px;padding:0 44px;font-size:15px;letter-spacing:.1em;
+  background:var(--cta);color:#fff;box-shadow:none;
+}
+.hero__odnosniki--jeden a:hover{background:var(--akcent-2);color:#fff}
+@media (max-width:560px){
+  .hero__odnosniki--jeden a{height:52px;padding:0 28px;font-size:13.5px}
+}
 
 /* flaga pochodzenia na karcie listingu (uwaga Damiana z 29.08).
    Kraju nie mamy dla żadnej odmiany, więc slot stoi w stanie oczekiwania. */
@@ -1085,6 +1134,9 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
    Oryginał jest biały, więc jasna nawigacja podstron dostaje wariant grafitowy. */
 .logo__znak{display:block;height:46px;width:auto}
 .naw--jasna .logo__znak{content:url("media/logo-hopit-ciemne.svg")}
+/* przypięta belka na stronie głównej jest kremowa, więc biały znak dawał na niej
+   1,05:1; ten sam mechanizm podmiany co na podstronach */
+.belka--przypieta .logo__znak{content:url("media/logo-hopit-ciemne.svg")}
 @media (max-width:900px){ .logo__znak{height:36px} }
 
 
@@ -1120,6 +1172,19 @@ a.topbar__poz:hover{color:var(--krem);background:#2E2B25}
 .dostawcy{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}
 .dostawca{background:#fff;border:2px solid var(--grafit);padding:24px 26px;display:flex;flex-direction:column;gap:10px}
 .dostawca__logo{min-height:64px;margin:0 0 6px;padding:16px}
+/* Loga z oficjalnych stron producentów przychodzą w różnych barwach: połowa jest
+   jasna (znika na bieli karty), połowa ciemna. Sprowadzamy wszystkie do grafitu,
+   żeby lista czytała się jak jeden rząd, a nie jak dziewięć cudzych identyfikacji. */
+.dostawca__logo:has(img){
+  height:88px;min-height:0;padding:0;display:flex;align-items:center;justify-content:flex-start;
+}
+.dostawca__logo img{
+  max-height:64px;max-width:180px;width:auto;height:auto;object-fit:contain;
+  filter:brightness(0);opacity:.82;
+}
+/* znaki okrągłe i pionowe przy tej samej wysokości wyglądają na mniejsze
+   od poziomych napisów, więc dostają więcej miejsca w pionie */
+.dostawca__logo--znak img{max-height:84px}
 .dostawca__nazwa{font-size:22px;color:var(--nori);margin:0}
 .dostawca__kraj{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent);margin:0}
 .dostawca__opis{min-height:0;padding:14px;margin:6px 0 0}
