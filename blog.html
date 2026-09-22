@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nectaron: granulat chmielu | HOPit</title>
+<title>Artykuły | HOPit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,900;1,700;1,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -37,8 +37,8 @@
     <div class="wrap">
       <a class="znak" href="index.html" aria-label="HOPit, strona główna"><img class="logo__znak" src="media/logo-hopit.svg" alt="HOPit" width="516" height="152"></a>
       <form class="szukaj" role="search" action="sklep.html" autocomplete="off">
-        <label class="szukaj__etykieta" for="szukaj-2">Szukaj w sklepie</label>
-        <input class="szukaj__pole" id="szukaj-2" type="search" name="q"
+        <label class="szukaj__etykieta" for="szukaj-6">Szukaj w sklepie</label>
+        <input class="szukaj__pole" id="szukaj-6" type="search" name="q"
                placeholder="Szukaj odmiany, aromatu, kraju…" aria-describedby="szukaj-podpowiedz">
         <button class="szukaj__lupa" type="submit" aria-label="Szukaj">
           <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="13" y1="13" x2="18" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -82,90 +82,87 @@
   </div>
 </div>
 
-<div class="pas-okruszki">
-  <div class="wrap"><div class="okruszki okruszki--jasne"><a href="index.html">Home</a> › <a href="sklep.html">Granulat chmielu</a> › <span>Nectaron</span></div></div>
-</div>
-
-<div class="wrap produkt">
-  <div class="galeria-p" data-galeria>
-    <div class="galeria-p__glowne"><img src="assets/mini-szyszki.jpg" alt="Szyszki chmielu Nectaron"></div>
-    <div class="galeria-p__minis" role="group" aria-label="Kadry produktu">
-      <button type="button" aria-current="true" data-duze="assets/mini-szyszki.jpg" data-opis="Szyszki chmielu Nectaron"><img src="assets/mini-szyszki.jpg" alt="Szyszki chmielu Nectaron"></button>
-      <button type="button" data-duze="assets/granulat-makro.jpg" data-opis="Granulat chmielu w powiększeniu"><img src="assets/granulat-makro.jpg" alt="Granulat chmielu w powiększeniu"></button>
-      <button type="button" data-duze="assets/szyszki-makro.jpg" data-opis="Szyszka chmielu w powiększeniu"><img src="assets/szyszki-makro.jpg" alt="Szyszka chmielu w powiększeniu"></button>
-      <button type="button" data-duze="assets/stos-kartonow.jpg" data-opis="Kartony HOPit"><img src="assets/stos-kartonow.jpg" alt="Kartony HOPit"></button>
-    </div>
+<section class="pas-naglowek pas-naglowek--uzytkowy">
+  <div class="wrap">
+    <div class="okruszki okruszki--jasne"><a href="index.html">Home</a> › <span>Blog</span></div>
+    <p class="kicker">Wiedza</p>
+    <h1 class="tytul"><span class="marker"><span class="marker__tresc">Artykuły</span></span></h1>
   </div>
+</section>
 
-  <div class="produkt__info">
-    <p class="kicker" style="color:var(--tekst-2)">Nowa Zelandia · granulat</p>
-    <h1 class="tytul" style="margin-top:12px">Nectaron</h1>
-    <p class="produkt__cena">149,00 – 695,00 zł netto</p>
-    <p class="produkt__dostepnosc">Produkt dostępny w sklepie</p>
-
-    <table class="parametry">
-      <tr><th>ALFA KWASY</th><td>10–12</td></tr>
-      <tr><th>BETA KWASY</th><td>4–5</td></tr>
-      <tr><th>KOHUMULON</th><td>26–28</td></tr>
-      <tr><th>OLEJKI</th><td>1,7 ml/100 g</td></tr>
-      <tr><th>ZAW. A-KWASÓW AKTUALNEJ PARTII</th><td>13,6</td></tr>
-      <tr><th>ZASTOSOWANIE</th><td>IPA, NEIPA</td></tr>
-      <tr><th>AROMAT</th><td>ananas, marakuja, brzoskwinia</td></tr>
-    </table>
-
-    <form>
-      <div class="form-siatka">
-        <div class="pole">
-          <label for="rocznik">Rocznik</label>
-          <select id="rocznik"><option>2026</option></select>
-        </div>
-        <div class="pole">
-          <label for="ilosc">Ilość</label>
-          <select id="ilosc"><option>1 kg</option><option>5 kg</option></select>
-        </div>
-      </div>
-      <div class="produkt__akcje">
-        <div class="akcja-przypieta"><button class="btn btn--akcent" type="button">Dodaj do koszyka</button></div>
-        <a class="btn btn--obrys" href="b2b.html#formularz">Zapytaj o wolumen B2B</a>
-      </div>
-    </form>
+<section class="sekcja-nowa">
+  <div class="wrap">
+    <ul class="wpisy">
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-01.jpg" alt="Piwowar wsypuje granulat chmielu do tanka fermentacyjnego" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Warzenie</p>
+            <h3 class="wpis__tytul">Dry hopping: kiedy dodać chmiel na zimno</h3>
+            <p class="wpis__lead">Moment dodania chmielu zmienia aromat piwa i ryzyko utlenienia. Porządkujemy, czym różni się chmielenie w trakcie fermentacji od chmielenia po jej zakończeniu.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-02.jpg" alt="Próżniowe worki z granulatem chmielu w chłodni" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Magazyn</p>
+            <h3 class="wpis__tytul">Jak przechowywać granulat chmielu</h3>
+            <p class="wpis__lead">Tlen, ciepło i światło odbierają chmielowi aromat. Podpowiadamy, co zrobić z zamkniętym i z otwartym workiem, żeby granulat długo trzymał swoje parametry.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-03.jpg" alt="Rzędy pnączy chmielu na plantacji" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Uprawa</p>
+            <h3 class="wpis__tytul">Rocznik chmielu: na co patrzeć przy zakupie</h3>
+            <p class="wpis__lead">Ta sama odmiana z dwóch zbiorów potrafi pachnieć inaczej. Tłumaczymy, jak czytać rocznik i parametry partii podane w karcie produktu.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-04.jpg" alt="Dłonie rozcierają szyszki chmielu przy ocenie aromatu" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Sensoryka</p>
+            <h3 class="wpis__tytul">Jak porównać aromat odmian przed zakupem</h3>
+            <p class="wpis__lead">Rozcieranie granulatu w dłoniach to najprostszy test sensoryczny. Pokazujemy, jak go przeprowadzić, żeby porównanie kilku odmian było uczciwe.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-05.jpg" alt="Kolba z drożdżami i płytki Petriego w laboratorium browaru" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Drożdże</p>
+            <h3 class="wpis__tytul">Jak dobrać drożdże WHC Lab do stylu piwa</h3>
+            <p class="wpis__lead">Od lagerów po NEIPA i kveiki. Od czego zależy wybór szczepu i które informacje z opisu drożdży są przy tym najważniejsze.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+      <li class="wpis">
+        <a class="wpis__link" href="artykul.html">
+          <div class="wpis__foto"><img src="media/wpisy/wpis-06.jpg" alt="Kropla olejku chmielowego nad szklanką piwa" loading="lazy" width="1200" height="800"></div>
+          <div class="wpis__tresc">
+            <p class="wpis__meta">Hopzoil</p>
+            <h3 class="wpis__tytul">Hopzoil w dry hoppingu: kiedy zamiast pelletu</h3>
+            <p class="wpis__lead">Oleje destylowane ze świeżych szyszek to alternatywa dla pelletu w chmieleniu na zimno. Kiedy warto po nie sięgnąć i jak zaplanować próbę na małej warce.</p>
+            <span class="wpis__czytaj">Czytaj artykuł</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <p class="przyklad-nota">Przykładowe wpisy pokazujące układ bloga. Tematy i treści do akceptacji HOPit.</p>
   </div>
-</div>
-
-<div class="wrap produkt__opis">
-  <h2 class="tytul">Opis produktu</h2>
-  <p>NZ Hops opracował nowofalową odmianę razem z&nbsp;Plant &amp; Food Research pod batutą Rona Beatsona. Nektar bogów (bo tak nazywają go nowozelandczycy) stworzony przez Rona to NectaRon! Wysoki poziom nut tropikalnych: ananas, marakuja oraz brzoskwinia i&nbsp;grapefruit sprawia, że ten chmiel aż bucha owocami! Nectaron to synteza Nauki, Sztuki, Mistrzostwa i&nbsp;Tajemnicy. Totalnie genialna nowozelandzka odmiana!</p>
-  <p><b>Skład:</b> 100% granulat</p>
-  <p><b>Ważne informacje:</b> kupiony przez Was granulat chmielu jest zapakowany próżniowo, dzięki czemu możecie cieszyć się dłużej jego wyjątkowymi właściwościami. Granulat chmielu należy przechowywać w&nbsp;temperaturze do 5°C w&nbsp;suchym miejscu.</p>
-  <p class="hasztagi">#NECTARON #NZ #CHMIEL #GRANULAT</p>
-</div>
-
-<div class="wrap podobne">
-  <p class="kicker" style="color:var(--tekst-2)">W magazynie</p>
-  <h2 class="tytul" style="margin-top:12px">Podobne odmiany</h2>
-  <div class="listing">
-    <article class="prod-k">
-      <div class="prod-k__foto"><img src="assets/mini-granulat.jpg" alt="" loading="lazy"></div>
-      <h3 class="tytul prod-k__nazwa">Amarillo</h3>
-      <p class="prod-k__cena">149,00 – 695,00 zł netto</p>
-      <a class="btn btn--obrys btn--male" href="#">Wybierz opcje</a>
-    </article>
-    <article class="prod-k">
-      <div class="prod-k__foto"><img src="assets/mini-szyszki.jpg" alt="" loading="lazy"></div>
-      <h3 class="tytul prod-k__nazwa">Azacca</h3>
-      <p class="prod-k__cena">129,00 – 595,00 zł netto</p>
-      <a class="btn btn--obrys btn--male" href="#">Wybierz opcje</a>
-    </article>
-    <article class="prod-k">
-      <span class="prod-k__badge">PROMOCJA</span>
-      <div class="prod-k__foto"><img src="assets/mini-granulat.jpg" alt="" loading="lazy"></div>
-      <h3 class="tytul prod-k__nazwa">Belma</h3>
-      <p class="prod-k__cena">95,00 – 109,00 zł netto</p>
-      <p class="prod-k__omnibus">Najniższa cena z 30 dni: (z systemu sklepu)</p>
-      <a class="btn btn--obrys btn--male" href="#">Wybierz opcje</a>
-    </article>
-  </div>
-</div>
+</section>
 
 <footer class="stopka">
   <div class="wrap">
@@ -209,7 +206,6 @@
   </div>
 </footer>
 
-<script src="produkt.js"></script>
 <nav class="appbar" aria-label="Skróty">
   <a class="appbar__poz" href="sklep.html">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16l-1.2 12.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8L4 7Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 7V5.6a3.5 3.5 0 0 1 7 0V7" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
