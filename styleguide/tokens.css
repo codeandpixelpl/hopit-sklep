@@ -122,6 +122,8 @@
      ========================================================================== */
   --max:            1280px;   /* kontener treści: 1280 + 2 × 28 px marginesu */
   --naw-h:          102px;    /* wysokość paska nawigacji, odtworzona z Figmy */
+  --belka-h:        146px;    /* pasek górny 44 + nawigacja 102; zmierzone, nie na oko */
+  --appbar-h:       62px;     /* dolny pasek skrótów, tylko poniżej 900 px */
   --cel-dotyk:      44px;     /* minimalny cel dotykowy */
 
 

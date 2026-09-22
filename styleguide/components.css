@@ -33,7 +33,13 @@
    i listing tracił 104 px oddechu pod paginacją.
    ============================================================================= */
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;
+     scroll-padding-top:calc(var(--belka-h) + var(--od-3))}
+/* Belka jest nieruchoma, więc skok do kotwicy musi zatrzymać się POD nią.
+   Samo `scroll-padding-top` na `html` nie wystarcza: przy wejściu na adres
+   z hashem (index.html#zespol z menu) Chromium go nie uwzględnia i nagłówek
+   ląduje 13 px pod paskiem. Margines na samym celu działa w obu przypadkach. */
+section[id],article[id],h2[id],h3[id]{scroll-margin-top:calc(var(--belka-h) + var(--od-4))}
 body{
   margin:0;background:var(--tlo);color:var(--tekst);
   font:16px/1.6 var(--f-display);-webkit-font-smoothing:antialiased;
@@ -163,7 +169,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .filtry__przelacz{display:none}
 .filtry{
   background:var(--tlo-karta);border-radius:var(--r-karta);box-shadow:var(--cien-lekki);
-  border:0;padding:var(--od-5);position:sticky;top:100px;
+  border:0;padding:var(--od-5);
+  /* bez sticky, decyzja Grzegorza z 2026-09-22: kolumna filtrów z rozwiniętym
+     wyszukiwaniem zaawansowanym jest wyższa niż okno pod belką (146 px), więc
+     przyklejona nie dawała się przewinąć do końca */
 }
 .filtry h3{
   font-family:var(--f-mono);font-size:var(--fs-nano);letter-spacing:.18em;
@@ -729,3 +738,251 @@ a.koszyk-poz__nazwa:hover{color:var(--cta-tekst)}
   .koszyk-poz .licznik{grid-area:licznik;justify-self:start;margin-top:var(--od-3)}
   .koszyk-poz__suma{grid-area:suma;margin-top:var(--od-3)}
 }
+
+
+/* =============================================================================
+   21. WYSZUKIWARKA W BELCE
+   Uwaga Kacpra z 16.09: „brakuje możliwości wyszukiwania produktu na całej
+   stronce". Pole stoi w belce na każdej podstronie, więc jest jedno miejsce,
+   w którym się szuka, a nie osobna wyszukiwarka w sklepie.
+   Podpowiedzi rysuje `03 - Design/nawigacja.js` z `dane/odmiany.json`, czyli
+   z prawdziwego zrzutu sklepu klienta. Domyślny wygląd jest JASNY (podstrony);
+   wariant na ciemnym wchodzi tylko pod nieprzypiętą belką strony głównej.
+   ============================================================================= */
+.szukaj{
+  position:relative;flex:0 1 420px;display:flex;align-items:center;
+  margin:0 var(--od-5);min-width:0;
+}
+.szukaj__etykieta{
+  position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);
+}
+.szukaj__pole{
+  width:100%;height:var(--cel-dotyk);padding:0 44px 0 var(--od-4);
+  font-family:var(--f-mono);font-size:var(--fs-mikro);color:var(--tekst);
+  background:var(--tlo-karta);border:1px solid var(--linia);border-radius:var(--r-pigulka);
+  -webkit-appearance:none;appearance:none;
+}
+.szukaj__pole::placeholder{color:var(--tekst-cichy)}
+.szukaj__pole:focus{outline:0;border-color:var(--pierscien);box-shadow:0 0 0 3px rgba(226,103,58,.28)}
+.szukaj__pole::-webkit-search-cancel-button{-webkit-appearance:none}
+.szukaj__lupa{
+  position:absolute;right:0;top:0;width:44px;height:var(--cel-dotyk);
+  display:flex;align-items:center;justify-content:center;
+  background:none;border:0;cursor:pointer;color:var(--tekst-cichy);
+}
+.szukaj__lupa svg{width:18px;height:18px}
+.szukaj__lupa:hover{color:var(--cta-tekst)}
+
+/* Na ciemnym wideo hero pole nie może być białą plamą obok logo, ale nie może
+   też być samą przezroczystością: kadr jest ruchomy, więc tło pod napisem zmienia
+   jasność z klatki na klatkę. Przy kryciu 12% napis zastępczy schodził do 2,82:1.
+   Zasłona z grafitu przy 82% daje najgorszy przypadek (biała klatka) 7,1:1
+   i nie zależy od tego, co akurat leci w filmie. */
+.belka--hero:not(.belka--przypieta) .szukaj__pole{
+  background:rgba(38,36,31,.82);border-color:rgba(242,239,230,.42);color:var(--tekst-cd);
+}
+.belka--hero:not(.belka--przypieta) .szukaj__pole::placeholder{color:rgba(242,239,230,.92)}
+.belka--hero:not(.belka--przypieta) .szukaj__lupa{color:var(--tekst-cd)}
+
+.szukaj__wyniki{
+  position:absolute;left:0;right:0;top:calc(var(--cel-dotyk) + 8px);z-index:90;
+  background:var(--tlo-karta);border-radius:var(--r-kafel);box-shadow:var(--cien-lekki-h);
+  border:1px solid var(--linia);overflow:hidden;max-height:62vh;overflow-y:auto;
+}
+.szukaj__wynik{
+  display:grid;gap:2px;padding:var(--od-3) var(--od-4);text-decoration:none;color:var(--tekst);
+  border-bottom:1px solid var(--linia);
+}
+.szukaj__wynik:last-child{border-bottom:0}
+.szukaj__wynik:hover{background:var(--tlo-2)}
+.szukaj__nazwa{
+  font-family:var(--f-display);font-weight:700;font-style:italic;text-transform:uppercase;
+  font-size:var(--fs-tytul-mini);color:var(--tekst-mocny);letter-spacing:-.01em;
+}
+.szukaj__meta{font-family:var(--f-mono);font-size:var(--fs-nano);color:var(--tekst-cichy)}
+.szukaj__aromat{font-size:13px;color:var(--tekst-cichy)}
+.szukaj__pusto,.szukaj__wiecej{
+  display:block;padding:var(--od-4);font-family:var(--f-mono);font-size:var(--fs-mikro);
+  color:var(--tekst-cichy);margin:0;
+}
+.szukaj__wiecej{color:var(--cta-tekst);text-decoration:none;background:var(--tlo-2)}
+
+
+/* =============================================================================
+   22. DOLNY PASEK SKRÓTÓW (telefon)
+   Wzorzec z hukins-hops.co.uk, wskazany przez Michała: na telefonie serwis ma
+   zachowywać się jak aplikacja, czyli mieć stały pasek nawigacji przy kciuku.
+   Wchodzi tylko poniżej 900 px; na desktopie te same skróty są w belce.
+   ============================================================================= */
+.appbar{display:none}
+@media (max-width:900px){
+  .appbar{
+    position:fixed;left:0;right:0;bottom:0;z-index:110;
+    /* cztery skróty: „Menu” wypadło, bo dublowało przycisk w nagłówku */
+    display:grid;grid-template-columns:repeat(4,1fr);
+    background:var(--tlo-karta);border-top:1px solid var(--linia);
+    box-shadow:0 -6px 20px rgba(38,36,31,.12);
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .appbar__poz{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    min-height:var(--appbar-h);padding:6px 2px;cursor:pointer;
+    background:none;border:0;text-decoration:none;color:var(--tekst-cichy);
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  }
+  .appbar__poz svg{width:22px;height:22px}
+  .appbar__poz:active{color:var(--cta-tekst)}
+  body{padding-bottom:calc(var(--appbar-h) + env(safe-area-inset-bottom))}
+  /* pasek „dodaj do koszyka" siada NAD skrótami, nie pod nimi */
+  .akcja-przypieta{bottom:calc(var(--appbar-h) + env(safe-area-inset-bottom))}
+  body:has(.akcja-przypieta){padding-bottom:calc(84px + var(--appbar-h))}
+}
+
+/* nakładka wyszukiwania: pełna szerokość, bo w dolnym pasku nie ma miejsca na pole.
+   `display:flex` bije atrybut `hidden`, więc stan zamknięty musi być zapisany
+   wprost — inaczej nakładka wisi otwarta także na desktopie. */
+.szukajka{position:fixed;inset:0;z-index:130;display:flex;flex-direction:column}
+.szukajka[hidden]{display:none}
+.szukajka__zaslona{
+  position:absolute;inset:0;background:rgba(31,58,45,.62);border:0;cursor:pointer;
+}
+.szukajka__tresc{
+  position:relative;background:var(--tlo);padding:var(--od-5) var(--od-4) var(--od-4);
+  box-shadow:0 14px 34px rgba(12,18,12,.3);
+}
+.szukaj--pelna{flex:1 1 auto;margin:0}
+/* Na telefonie szukajka otwiera się przy kciuku: panel siada tuż nad dolnym
+   paskiem skrótów, a podpowiedzi rosną w górę. `--klawiatura` ustawia skrypt
+   z visualViewport, żeby klawiatura ekranowa nie przykryła pola. */
+@media (max-width:900px){
+  .szukajka{
+    bottom:calc(max(var(--appbar-h) + env(safe-area-inset-bottom), var(--klawiatura, 0px)));
+    justify-content:flex-end;
+  }
+  .szukajka__tresc{
+    padding:var(--od-3) var(--od-4);border-top:1px solid var(--linia);
+    box-shadow:0 -10px 28px rgba(12,18,12,.22);
+    display:flex;align-items:center;gap:var(--od-2);
+  }
+  /* lista liczy się od panelu, nie od formularza, więc sięga też nad „Zamknij” */
+  .szukajka .szukaj--pelna{position:static}
+  /* formularz przestał być punktem odniesienia, więc lupa idzie w przepływie
+     i wchodzi na koniec pola ujemnym marginesem */
+  .szukajka .szukaj__lupa{position:relative;flex:0 0 44px;margin-left:-44px}
+  .szukajka .szukaj__wyniki{top:auto;bottom:calc(100% + 8px);left:var(--od-4);right:var(--od-4);max-height:52vh}
+  .szukajka__zamknij{margin:0;padding:0 var(--od-3);flex:0 0 auto}
+}
+.szukajka__zamknij{
+  display:block;margin:var(--od-4) auto 0;min-height:var(--cel-dotyk);padding:0 var(--od-5);
+  background:none;border:0;cursor:pointer;color:var(--tekst-cichy);
+  font-family:var(--f-mono);font-size:var(--fs-mikro);letter-spacing:var(--ls-mono);
+  text-transform:uppercase;
+}
+.bez-przewijania{overflow:hidden}
+
+
+/* =============================================================================
+   23. WYSZUKIWANIE ZAAWANSOWANE W FILTRACH
+   Uwaga klienta z 16.09: po lewej zostaje kilka pozycji, reszta schodzi do
+   wyszukiwania zaawansowanego. Widoczne zostają trzy grupy (typ, pochodzenie,
+   cena), pozostałe pięć siedzi w `<details>`, więc działa bez skryptu.
+   Aromat wchodzi tutaj jako osobna oś, o którą prosił Michał.
+   ============================================================================= */
+.zaawans{margin-top:var(--od-5);border-top:1px solid var(--linia);padding-top:var(--od-4)}
+.zaawans__przelacz{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--od-3);
+  min-height:var(--cel-dotyk);cursor:pointer;list-style:none;
+  font-family:var(--f-mono);font-size:var(--fs-mikro);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--cta-tekst);
+}
+.zaawans__przelacz::-webkit-details-marker{display:none}
+.zaawans__przelacz::after{
+  content:"";width:9px;height:9px;flex:0 0 auto;
+  border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s;
+}
+.zaawans[open] .zaawans__przelacz::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.zaawans__szukaj{display:block;margin-bottom:var(--od-4)}
+.zaawans__etykieta{
+  display:block;margin-bottom:6px;
+  font-family:var(--f-mono);font-size:var(--fs-nano);color:var(--tekst-cichy);
+}
+.zaawans__szukaj input{
+  width:100%;min-height:var(--cel-dotyk);padding:0 var(--od-3);
+  font-family:var(--f-mono);font-size:var(--fs-mikro);color:var(--tekst);
+  background:var(--tlo);border:1px solid var(--linia);border-radius:var(--r-kafel);
+  -webkit-appearance:none;appearance:none;
+}
+.zaawans__szukaj input:focus{outline:0;border-color:var(--pierscien);box-shadow:0 0 0 3px rgba(226,103,58,.28)}
+
+.aromaty{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0 0 var(--od-3);padding:0}
+/* przypis o źródle liczb kleił się do nagłówka następnej grupy filtrów */
+.zaawans__tresc .filtr__uwaga{margin-bottom:var(--od-5)}
+.zaawans__tresc h3{margin-top:var(--od-5)}
+.zaawans__tresc h3:first-child{margin-top:var(--od-3)}
+.aromaty li{border:0;padding:0}
+/* `.filtr.filtr--chip`, nie samo `.filtr--chip`: `.filtr{padding:6px 0}` z design.css
+   ładuje się później i przy tej samej wadze zerował boczny padding pigułki */
+.filtr.filtr--chip{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:34px;padding:0 14px;border-radius:var(--r-pigulka);
+  border:1px solid var(--linia);background:var(--tlo);cursor:pointer;
+  font-size:13px;color:var(--tekst);transition:background .16s,border-color .16s,color .16s;
+}
+.filtr--chip input{position:absolute;opacity:0;width:0;height:0}
+.filtr--chip .mono{font-family:var(--f-mono);font-size:10.5px;color:var(--tekst-cichy)}
+.filtr--chip:hover{border-color:var(--pierscien)}
+.filtr--chip:has(input:checked){background:var(--cta);border-color:var(--cta);color:#fff}
+.filtr--chip:has(input:checked) .mono{color:rgba(255,255,255,.78)}
+.filtr--chip:has(input:focus-visible){outline:2px solid var(--pierscien);outline-offset:2px}
+
+
+/* =============================================================================
+   24. WYNIKI WYSZUKIWANIA NA LISTINGU
+   Listing w prototypie jest statyczny, więc wyniki rysują się z `odmiany.json`
+   jako osobna lista, a nie jako przefiltrowane karty. Dzięki temu liczba pod
+   nagłówkiem („28 z 153") jest prawdziwa i da się ją sprawdzić w danych.
+   ============================================================================= */
+/* scrollIntoView zatrzymuje się na krawędzi okna, a tam stoi belka; bez tego
+   nagłówek wyników ląduje pod paskiem i wygląda, jakby wyszukiwanie nic nie dało */
+.wyniki{padding-block:var(--od-5) var(--od-6);scroll-margin-top:calc(var(--belka-h) + var(--od-4))}
+.wyniki__head{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--od-3) var(--od-4);
+  padding-bottom:var(--od-3);border-bottom:2px solid var(--linia-mocna);
+}
+.wyniki__tytul{font-size:var(--fs-tytul-duzy);color:var(--tekst-mocny);margin:0}
+.wyniki__licznik{font-size:var(--fs-mikro);color:var(--tekst-cichy);margin:0}
+.wyniki__wyczysc{
+  margin-left:auto;min-height:var(--cel-dotyk);padding:0 var(--od-4);cursor:pointer;
+  background:none;border:1px solid var(--linia);border-radius:var(--r-pigulka);
+  font-family:var(--f-mono);font-size:var(--fs-nano);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--tekst-cichy);
+}
+.wyniki__wyczysc:hover{border-color:var(--pierscien);color:var(--tekst)}
+.wyniki__lista{list-style:none;margin:0;padding:0}
+.wynik{
+  display:grid;grid-template-columns:minmax(0,1.1fr) 200px 110px minmax(0,1.6fr);
+  gap:var(--od-4);align-items:baseline;padding:var(--od-4) var(--od-2);
+  border-bottom:1px solid var(--linia);
+}
+.wynik:hover{background:var(--tlo-2)}
+.wynik__nazwa{
+  font-size:var(--fs-tytul-mini);color:var(--tekst-mocny);text-decoration:none;
+}
+.wynik__nazwa:hover{color:var(--cta-tekst)}
+.wynik__meta,.wynik__alfa{font-size:var(--fs-nano);color:var(--tekst-cichy)}
+.wynik__aromat{font-size:13px;color:var(--tekst)}
+.wyniki__pusto,.wyniki__reszta{
+  padding:var(--od-5) 0;font-family:var(--f-mono);font-size:var(--fs-mikro);color:var(--tekst-cichy);
+}
+@media (max-width:760px){
+  .wyniki__tytul{font-size:28px}
+  .wynik{grid-template-columns:1fr;gap:4px}
+  .wyniki__wyczysc{margin-left:0}
+}
+
+
+/* link do pełnej oferty w PDF nad listingiem: ten sam plik, do którego prowadzi
+   przycisk „ZOBACZ CAŁĄ OFERTĘ” w newsletterze klienta */
+.listing-top__pdf{color:var(--cta-tekst);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.listing-top__pdf:hover{color:var(--tekst-mocny)}
