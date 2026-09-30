@@ -40,6 +40,7 @@
         <a href="tel:+48536763341">+48 536 763 341</a>
         <span>ul. Kruszcowa 4, 41-902 Bytom</span>
       </div>
+      <div class="social panel__social" aria-label="HOPit w mediach społecznościowych"><a href="https://www.facebook.com/HOPit.Poland" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.2h2.4l.4-2.9h-2.8V9.1c0-.8.3-1.4 1.4-1.4h1.5V5.1c-.3 0-1.1-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.1H8v2.9h2.5V21h3Z"/></svg></a><a href="https://www.instagram.com/hopit.pl/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a></div>
       <div class="panel__jezyki" role="group" aria-label="Wybór języka"><a class="panel__jezyk" href="#" hreflang="pl" aria-current="true">PL</a><a class="panel__jezyk" href="#" hreflang="en">EN</a></div>
     </div>
   </div>
@@ -62,6 +63,10 @@
         <a class="topbar__poz" href="#">Moje konto</a>
         <a class="topbar__poz" href="#">Status zamówienia</a>
         <a class="topbar__poz topbar__poz--domyka" href="#">Obserwowane</a>
+      </div>
+      <div class="topbar__grupa topbar__grupa--social" aria-label="HOPit w mediach społecznościowych">
+        <a class="topbar__poz topbar__social" href="https://www.facebook.com/HOPit.Poland" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.2h2.4l.4-2.9h-2.8V9.1c0-.8.3-1.4 1.4-1.4h1.5V5.1c-.3 0-1.1-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.1H8v2.9h2.5V21h3Z"/></svg></a>
+        <a class="topbar__poz topbar__poz--domyka topbar__social" href="https://www.instagram.com/hopit.pl/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
       </div>
     </div>
   </div>
@@ -86,22 +91,43 @@
 </div>
 
 <section class="hero">
-  <!-- Pętla z pokazu NZ Hops „The Originators” (materiał od dostawcy, 22.09): siedem ujęć, 10,6 s,
+  <!-- Pętla z pokazu NZ Hops „The Originators” (materiał od dostawcy, 22.09): cztery ujęcia po 7 s, 24,4 s (od 23.09),
        podpisy farm wycięte kadrem od dołu. Plik wybiera skrypt poniżej, zanim cokolwiek się pobierze,
        więc telefon ściąga tylko pion 540p. Stara pętla: media/hero-zasyp.mp4. -->
   <video class="hero__wideo" poster="media/hero-plantacja-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true"
          data-desktop="media/hero-plantacja_1080p.mp4" data-mobile="media/hero-plantacja-mobile_540p.mp4"
          data-poster-mobile="media/hero-plantacja-poster-mobile.jpg"></video>
+  <!-- Przycisk pauzy (WCAG 2.2.2: ruch dłuższy niż 5 s musi dać się zatrzymać).
+       Przy systemowym „ograniczeniu ruchu” film nie startuje sam, tylko czeka na ten przycisk:
+       tak było u klienta 29.09 (Windows z wyłączonymi efektami animacji pokazywał sam plakat). -->
+  <button class="hero__pauza" type="button" hidden>
+    <svg class="hero__pauza-ik hero__pauza-ik--pauza" viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx="1"/><rect x="11.8" y="4" width="3.2" height="12" rx="1"/></svg>
+    <svg class="hero__pauza-ik hero__pauza-ik--start" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6L15.6 10Z"/></svg>
+    <span class="hero__pauza-tekst">Pauza</span>
+  </button>
   <script>
   (function () {
-    var v = document.currentScript.previousElementSibling;
+    var v = document.querySelector('.hero__wideo');
+    var btn = document.querySelector('.hero__pauza');
     var telefon = matchMedia('(max-width: 767px)').matches;
+    var spokoj = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var zatrzymany = spokoj; // przy ograniczeniu ruchu startuje dopiero na prośbę
     if (telefon) v.poster = v.dataset.posterMobile;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // zostaje sam plakat
-    v.src = telefon ? v.dataset.mobile : v.dataset.desktop;
-    v.play().catch(function () {});
+    function zaladuj() { if (!v.getAttribute('src')) v.src = telefon ? v.dataset.mobile : v.dataset.desktop; }
+    function stan() {
+      btn.classList.toggle('hero__pauza--start', zatrzymany);
+      btn.querySelector('.hero__pauza-tekst').textContent = zatrzymany ? 'Odtwórz film' : 'Pauza';
+    }
+    btn.hidden = false; stan();
+    btn.addEventListener('click', function () {
+      zatrzymany = !zatrzymany;
+      if (zatrzymany) v.pause(); else { zaladuj(); v.play().catch(function () {}); }
+      stan();
+    });
+    if (!zatrzymany) { zaladuj(); v.play().catch(function () {}); }
     // poza kadrem pętla stoi, żeby nie zjadać baterii i procesora
     if ('IntersectionObserver' in window) new IntersectionObserver(function (w) {
+      if (zatrzymany) return;
       w[0].isIntersecting ? v.play().catch(function () {}) : v.pause();
     }, { threshold: 0.01 }).observe(v);
   })();
@@ -113,7 +139,7 @@
       <img class="hero__znak-haslo" src="media/haslo-make-it-bitter.svg" alt="Make it Bitter" width="593" height="58">
     </div>
     <div class="hero__dol">
-      <p class="hero__lead">Chmiele, drożdże, olejki i&nbsp;enzymy</p>
+      <p class="hero__lead">Chmiele, drożdże i&nbsp;enzymy</p>
       <nav class="hero__odnosniki hero__odnosniki--jeden" aria-label="Skróty">
         <a href="sklep.html">Wejdź do sklepu</a>
       </nav>
@@ -126,9 +152,8 @@
     <div class="sekcja-head sekcja-head--srodek polecane__head">
       <div>
         <p class="kicker">Polecane produkty</p>
-        <h2 class="tytul" style="margin-top:14px"><span class="marker"><span class="marker__tresc">Koniecznie <span class="cien">wypróbuj!</span></span></span></h2>
+        <h2 class="tytul" style="margin-top:14px"><span class="marker"><span class="marker__tresc">Piwowarskie <span class="cien">pewniaki</span></span></span></h2>
       </div>
-      <p class="polecane__meta">po jednym z każdej kategorii · ceny netto ze sklepu</p>
     </div>
   </div>
   <div class="karuzela" tabindex="0" role="group" aria-label="Polecane produkty, przewijanie w poziomie">
@@ -167,43 +192,20 @@
   </div>
 </section>
 
-<section class="opinie" id="opinie">
-  <div class="wrap">
-    <div class="sekcja-head">
-      <p class="kicker">Opinie browarów</p>
-      <h2 class="tytul">Z kim warzymy</h2>
-    </div>
-  </div>
-  <div class="opinie__pas" data-opinie>
-    <div class="opinie__rzad">
-      <div class="opinie__grupa">
-        <blockquote class="opinia"><p class="opinia__tekst">Pracujemy z HOPit od lat i możemy śmiało powiedzieć, że to wzorowy dostawca. Elastyczność, zrozumienie realiów małego browaru i gotowość do pomocy w krytycznych momentach naprawdę ich wyróżniają.</p><footer class="opinia__autor"><b>Łukasz Kierski</b><span>Browar Ziemia Obiecana</span></footer></blockquote>
-        <blockquote class="opinia"><p class="opinia__tekst">Mistrzowie chmielowego rynku. Oferują unikalne odmiany z niemal każdego zakątka świata. Profesjonalni, punktualni i zawsze otwarci na nowe pomysły oraz trendy.</p><footer class="opinia__autor"><b>Kuba Rosiek</b><span>Browar Trzech Kumpli</span></footer></blockquote>
-        <blockquote class="opinia"><p class="opinia__tekst">Pracujemy z zespołem HOPit od lat i to jedna z tych ekip, z którymi warzy się przyjemnie. Zawsze na czas, chmiele buchają aromatem, a każda rozmowa to przyjemność.</p><footer class="opinia__autor"><b>Michał Przystupa</b><span>Browar Gwarek</span></footer></blockquote>
-        <blockquote class="opinia"><p class="opinia__tekst">Korzystamy z usług HOPit od lat i polecamy ich każdemu w branży piwowarskiej. Dostawy są szybkie i sprawne, a jakość chmielu z całego świata niezmiennie wysoka.</p><footer class="opinia__autor"><b>Maciej Osiński</b><span>Browar ReCraft</span></footer></blockquote>
-        <blockquote class="opinia"><p class="opinia__tekst">Zawsze można liczyć na szybką dostawę, wysoką jakość i świeżość surowców. Świetna komunikacja i bieżące informacje o wysyłce.</p><footer class="opinia__autor"><b>Dominik Szczodry</b><span>Browar Cieszyn</span></footer></blockquote>
-        <blockquote class="opinia"><p class="opinia__tekst">Co wyróżnia HOPit? Kiedy potrzebujemy świeżego chmielu z drugiego końca świata, i to szybko, wiemy dokładnie do kogo dzwonić.</p><footer class="opinia__autor"><b>Maciej Bieliński</b><span>Browar Gościszewo</span></footer></blockquote>
-      </div>
-    </div>
-  </div>
-  <div class="wrap">
-  </div>
-</section>
-
 <!-- Kategorie w wersji 1 z opcji obrazowych (docs/kategorie-opcje/o1): cztery karty na zieleni.
      Zdjęcia wygenerował Codex ImageGen jako zastępstwo (22.09). -->
 <section class="kategorie kategorie--karty" id="kategorie" aria-label="Kategorie produktów">
   <div class="wrap">
     <div class="sekcja-head sekcja-head--srodek">
       <p class="kicker">Sklep</p>
-      <h2 class="tytul">Granulat Chmielu, Drożdże,<br> Hopzoil, Enzymy</h2>
+      <h2 class="tytul">Chmiel, Drożdże, Enzymy</h2>
     </div>
     <div class="kat-karty">
       <article class="kat-karta">
         <div class="kat-karta__foto"><img src="media/kategorie/kat-granulat.jpg" alt="Misa granulatu chmielu na tle plantacji" loading="lazy" width="800" height="1200"></div>
         <div class="kat-karta__tresc">
           <h3 class="tytul kat-karta__nazwa">Granulat chmielu</h3>
-          <p class="kat-karta__opis">Wszystkie chmiele można również zamawiać za pomocą formularza kontraktowego.</p>
+          <p class="kat-karta__opis">Wszystkie chmiele można również zamawiać za pomocą formularza ofertowego.</p>
           <p class="kat-karta__dana">chmiele z topowych kierunków</p>
           <a class="btn btn--obrys kat-karta__btn" href="sklep.html">Zobacz w sklepie</a>
         </div>
@@ -239,19 +241,42 @@
   </div>
 </section>
 
+<section class="opinie" id="opinie">
+  <div class="wrap">
+    <div class="sekcja-head">
+      <p class="kicker">Opinie browarów</p>
+      <h2 class="tytul">Z kim warzymy</h2>
+    </div>
+  </div>
+  <div class="opinie__pas" data-opinie>
+    <div class="opinie__rzad">
+      <div class="opinie__grupa">
+        <blockquote class="opinia"><p class="opinia__tekst">Pracujemy z HOPit od lat i możemy śmiało powiedzieć, że to wzorowy dostawca. Elastyczność, zrozumienie realiów małego browaru i gotowość do pomocy w krytycznych momentach naprawdę ich wyróżniają.</p><footer class="opinia__autor"><b>Łukasz Kierski</b><span>Browar Ziemia Obiecana</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Mistrzowie chmielowego rynku. Oferują unikalne odmiany z niemal każdego zakątka świata. Profesjonalni, punktualni i zawsze otwarci na nowe pomysły oraz trendy.</p><footer class="opinia__autor"><b>Kuba Rosiek</b><span>Browar Trzech Kumpli</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Pracujemy z zespołem HOPit od lat i to jedna z tych ekip, z którymi warzy się przyjemnie. Zawsze na czas, chmiele buchają aromatem, a każda rozmowa to przyjemność.</p><footer class="opinia__autor"><b>Michał Przystupa</b><span>Browar Gwarek</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Korzystamy z usług HOPit od lat i polecamy ich każdemu w branży piwowarskiej. Dostawy są szybkie i sprawne, a jakość chmielu z całego świata niezmiennie wysoka.</p><footer class="opinia__autor"><b>Maciej Osiński</b><span>Browar ReCraft</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Zawsze można liczyć na szybką dostawę, wysoką jakość i świeżość surowców. Świetna komunikacja i bieżące informacje o wysyłce.</p><footer class="opinia__autor"><b>Dominik Szczodry</b><span>Browar Cieszyn</span></footer></blockquote>
+        <blockquote class="opinia"><p class="opinia__tekst">Co wyróżnia HOPit? Kiedy potrzebujemy świeżego chmielu z drugiego końca świata, i to szybko, wiemy dokładnie do kogo dzwonić.</p><footer class="opinia__autor"><b>Maciej Bieliński</b><span>Browar Gościszewo</span></footer></blockquote>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+  </div>
+</section>
+
 <section class="kontrakt kontrakt--drogi" id="kontrakt">
   <div class="wrap">
-    <h2 class="tytul tytul--ciemny"><span class="marker"><span class="marker__tresc">Jak kupować</span></span></h2>
+    <h2 class="tytul tytul--ciemny"><span class="marker"><span class="marker__tresc">Jak możemy współpracować?</span></span></h2>
     <div class="dwie-drogi">
-      <article class="droga droga--nori">
-        <h3 class="tytul droga__nazwa">Kontrakt</h3>
-        <p class="droga__opis">Powiedz nam ile chmielu potrzebujesz, a&nbsp;my wrócimy do Ciebie z&nbsp;indywidualną ofertą. Kontrakt to gwarancja atrakcyjnej ceny i&nbsp;pewnej dostawy.</p>
-        <a class="btn btn--akcent droga__btn" href="b2b.html#formularz">Wypełnij formularz</a>
-      </article>
       <article class="droga droga--biala">
         <h3 class="tytul droga__nazwa">Sklep</h3>
-        <p class="droga__opis">Wszystkie odmiany, oleje i&nbsp;drożdże z&nbsp;cenami. Kupujesz od&nbsp;ręki, bez pytania o&nbsp;wycenę.</p>
+        <p class="droga__opis">Wszystkie chmiele, drożdże i&nbsp;enzymy w&nbsp;jednym miejscu, dostępne od&nbsp;ręki i&nbsp;z&nbsp;przejrzystymi cenami.</p>
         <a class="btn btn--obrys droga__btn" href="sklep.html">Przejdź do sklepu</a>
+      </article>
+      <article class="droga droga--nori">
+        <h3 class="tytul droga__nazwa">Kontrakt</h3>
+        <p class="droga__opis">Określ swoje zapotrzebowanie, a&nbsp;my przygotujemy indywidualną ofertę. Kontrakt gwarantuje korzystne warunki handlowe, dostępność surowców oraz terminowe dostawy.</p>
+        <a class="btn btn--akcent droga__btn" href="b2b.html#formularz">Wypełnij formularz</a>
       </article>
     </div>
     <p class="kontrakt__dowod kontrakt__dowod--ciemny">
@@ -261,7 +286,6 @@
     </p>
   </div>
   <span class="kontrakt__pas" aria-hidden="true"></span>
-  <canvas class="fizyka" aria-hidden="true"></canvas>
 </section>
 
 
@@ -269,27 +293,77 @@
 <section class="zespol zespol--kola" id="zespol">
   <div class="wrap">
     <div class="sekcja-head sekcja-head--srodek">
-      <p class="kicker">Zespół HOPit</p>
-      <h2 class="tytul"><span class="marker"><span class="marker__tresc">Prawdziwi <span class="cien">ludzie</span></span></span></h2>
+      <p class="kicker">Zespół</p>
+      <h2 class="tytul"><span class="marker"><span class="marker__tresc">Poznajmy <span class="cien">się</span></span></span></h2>
     </div>
-    <div class="kola">
+    <!-- Sześć osób w kolejności z uwag klienta z 29.09. Opis wysuwa się po najechaniu
+         na zdjęcie; na dotyku po stuknięciu (zespol.js przełącza aria-expanded). -->
+    <div class="kola kola--szesc">
       <article class="kolo-osoba">
-        <img class="kolo-osoba__foto" src="media/portret-damian-bigaj.jpg" alt="Damian Bigaj" width="440" height="440" loading="lazy">
-        <h3 class="tytul kolo-osoba__imie">Damian Bigaj</h3>
-        <p class="kolo-osoba__rola">logistyka</p>
-        <p class="kolo-osoba__mail">dbigaj@hopit.pl</p>
-      </article>
-      <article class="kolo-osoba">
-        <img class="kolo-osoba__foto" src="media/portret-kacper-dworniczek.jpg" alt="Kacper Dworniczek" width="440" height="440" loading="lazy">
-        <h3 class="tytul kolo-osoba__imie">Kacper Dworniczek</h3>
-        <p class="kolo-osoba__rola">sprzedaż</p>
-        <p class="kolo-osoba__mail">info@hopit.pl</p>
-      </article>
-      <article class="kolo-osoba">
-        <img class="kolo-osoba__foto" src="media/portret-michal-pactwa.jpg" alt="Michał Pactwa" width="440" height="440" loading="lazy">
+        <button class="kolo-osoba__odkryj" type="button" aria-expanded="false" aria-controls="bio-1" aria-label="Michał Pactwa: pokaż opis">
+          <img class="kolo-osoba__foto" src="media/portret-michal-pactwa.jpg" alt="" width="440" height="440" loading="lazy">
+        </button>
+        <div class="kolo-osoba__bio" id="bio-1">
+          <p class="do-uzup">Krótki opis do uzupełnienia, 3–4 zdania o&nbsp;tym, czym się zajmuje i&nbsp;w&nbsp;czym pomaga browarom.</p>
+        </div>
         <h3 class="tytul kolo-osoba__imie">Michał Pactwa</h3>
-        <p class="kolo-osoba__rola">chmiel</p>
-        <p class="kolo-osoba__mail">info@hopit.pl</p>
+        <p class="kolo-osoba__obszar">Doradztwo • Sprzedaż do browarów kraftowych • Organizacja wysyłek</p>
+        <p class="kolo-osoba__kontakt"><a href="tel:+48536763341">536 763 341</a> · <a href="mailto:info@hopit.pl">info@hopit.pl</a></p>
+      </article>
+      <article class="kolo-osoba">
+        <button class="kolo-osoba__odkryj" type="button" aria-expanded="false" aria-controls="bio-2" aria-label="Arkadiusz Rajca: pokaż opis">
+          <span class="kolo-osoba__foto kolo-osoba__foto--brak" aria-hidden="true">AR</span><span class="kolo-osoba__brak">zdjęcie do uzupełnienia</span>
+        </button>
+        <div class="kolo-osoba__bio" id="bio-2">
+          <p class="do-uzup">Krótki opis do uzupełnienia, 3–4 zdania o&nbsp;tym, czym się zajmuje i&nbsp;w&nbsp;czym pomaga browarom.</p>
+        </div>
+        <h3 class="tytul kolo-osoba__imie">Arkadiusz Rajca</h3>
+        <p class="kolo-osoba__obszar">Sprzedaż w&nbsp;Polsce • Browary kraftowe, restauracyjne i&nbsp;koncernowe • Przemysł spożywczy, kosmetyczny i&nbsp;farmaceutyczny</p>
+        <p class="kolo-osoba__kontakt"><span class="do-uzup">telefon i e-mail do uzupełnienia</span></p>
+      </article>
+      <article class="kolo-osoba">
+        <button class="kolo-osoba__odkryj" type="button" aria-expanded="false" aria-controls="bio-3" aria-label="Jukka Jahnukainen: pokaż opis">
+          <span class="kolo-osoba__foto kolo-osoba__foto--brak" aria-hidden="true">JJ</span><span class="kolo-osoba__brak">zdjęcie do uzupełnienia</span>
+        </button>
+        <div class="kolo-osoba__bio" id="bio-3">
+          <p class="do-uzup">Krótki opis do uzupełnienia, 3–4 zdania o&nbsp;tym, czym się zajmuje i&nbsp;w&nbsp;czym pomaga browarom.</p>
+        </div>
+        <h3 class="tytul kolo-osoba__imie">Jukka Jahnukainen</h3>
+        <p class="kolo-osoba__obszar">Kraje Bałtyckie • Sprzedaż do browarów kraftowych, restauracyjnych i&nbsp;koncernowych • Przemysł spożywczy, kosmetyczny i&nbsp;farmaceutyczny</p>
+        <p class="kolo-osoba__kontakt"><span class="do-uzup">telefon i e-mail do uzupełnienia</span></p>
+      </article>
+      <article class="kolo-osoba">
+        <button class="kolo-osoba__odkryj" type="button" aria-expanded="false" aria-controls="bio-4" aria-label="Damian Bigaj: pokaż opis">
+          <img class="kolo-osoba__foto" src="media/portret-damian-bigaj.jpg" alt="" width="440" height="440" loading="lazy">
+        </button>
+        <div class="kolo-osoba__bio" id="bio-4">
+          <p class="do-uzup">Krótki opis do uzupełnienia, 3–4 zdania o&nbsp;tym, czym się zajmuje i&nbsp;w&nbsp;czym pomaga browarom.</p>
+        </div>
+        <h3 class="tytul kolo-osoba__imie">Damian Bigaj</h3>
+        <p class="kolo-osoba__obszar">Logistyka • Współpraca z&nbsp;farmami i&nbsp;dostawcami • Sprzedaż w&nbsp;Europie Środkowo-Wschodniej</p>
+        <p class="kolo-osoba__kontakt"><a href="tel:+48606453641">606 453 641</a> · <a href="mailto:dbigaj@hopit.pl">dbigaj@hopit.pl</a></p>
+      </article>
+      <article class="kolo-osoba">
+        <button class="kolo-osoba__odkryj" type="button" aria-expanded="false" aria-controls="bio-5" aria-label="Tomasz: pokaż opis">
+          <span class="kolo-osoba__foto kolo-osoba__foto--brak" aria-hidden="true">T</span><span class="kolo-osoba__brak">zdjęcie do uzupełnienia</span>
+        </button>
+        <div class="kolo-osoba__bio" id="bio-5">
+          <p class="do-uzup">Krótki opis do uzupełnienia, 3–4 zdania o&nbsp;tym, czym się zajmuje i&nbsp;w&nbsp;czym pomaga browarom.</p>
+        </div>
+        <h3 class="tytul kolo-osoba__imie">Tomasz</h3>
+        <p class="kolo-osoba__obszar">Marketing</p>
+        <p class="kolo-osoba__kontakt"><span class="do-uzup">telefon i e-mail do uzupełnienia</span></p>
+      </article>
+      <article class="kolo-osoba">
+        <button class="kolo-osoba__odkryj" type="button" aria-expanded="false" aria-controls="bio-6" aria-label="Kacper Dworniczek: pokaż opis">
+          <img class="kolo-osoba__foto" src="media/portret-kacper-dworniczek.jpg" alt="" width="440" height="440" loading="lazy">
+        </button>
+        <div class="kolo-osoba__bio" id="bio-6">
+          <p class="do-uzup">Krótki opis do uzupełnienia, 3–4 zdania o&nbsp;tym, czym się zajmuje i&nbsp;w&nbsp;czym pomaga browarom.</p>
+        </div>
+        <h3 class="tytul kolo-osoba__imie">Kacper Dworniczek</h3>
+        <p class="kolo-osoba__obszar">Księgowość • Fakturowanie</p>
+        <p class="kolo-osoba__kontakt"><a href="tel:+48606882947">606 882 947</a> · <a href="mailto:payments@hopit.pl">payments@hopit.pl</a></p>
       </article>
     </div>
   </div>
@@ -354,7 +428,7 @@
       </details>
       <details class="faq__poz">
         <summary class="faq__pytanie">Jak zamówić większą ilość chmielu?</summary>
-        <div class="faq__odp"><p>Wypełnij <a href="b2b.html#formularz">formularz kontraktowy</a> w strefie B2B. Powiedz nam, ile chmielu potrzebujesz, a wrócimy do Ciebie z&nbsp;indywidualną ofertą. Kontrakt to gwarancja atrakcyjnej ceny i&nbsp;pewnej dostawy.</p></div>
+        <div class="faq__odp"><p>Wypełnij <a href="b2b.html#formularz">formularz ofertowy</a> w strefie B2B. Określ swoje zapotrzebowanie, a&nbsp;my przygotujemy indywidualną ofertę. Kontrakt gwarantuje korzystne warunki handlowe, dostępność surowców oraz terminowe dostawy.</p></div>
       </details>
       <details class="faq__poz">
         <summary class="faq__pytanie">Jak przechowywać granulat chmielu?</summary>
@@ -391,6 +465,11 @@
       <a href="https://www.instagram.com/p/DcbBupYMl-V/" target="_blank" rel="noopener"><img src="media/instagram/ig-05.jpg" alt="Post HOPit na Instagramie z 24 sierpnia 2026" loading="lazy" width="512" height="640"></a>
       <a href="https://www.instagram.com/p/DcA17EYihdb/" target="_blank" rel="noopener"><img src="media/instagram/ig-06.jpg" alt="Post HOPit na Instagramie z 14 sierpnia 2026" loading="lazy" width="512" height="640"></a>
     </div>
+    <!-- Facebook pod Instagramem: pytanie klienta z 29.09 („czy pod tym będzie miejsce dla facebooka”) -->
+    <p class="insta__dalej">
+      <a class="btn btn--obrys insta__btn" href="https://www.instagram.com/hopit.pl/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>Obserwuj @hopit.pl</a>
+      <a class="btn btn--obrys insta__btn" href="https://www.facebook.com/HOPit.Poland" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.2h2.4l.4-2.9h-2.8V9.1c0-.8.3-1.4 1.4-1.4h1.5V5.1c-.3 0-1.1-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.1H8v2.9h2.5V21h3Z"/></svg>HOPit na Facebooku</a>
+    </p>
   </div>
 </section>
 
@@ -440,8 +519,8 @@
     document.querySelectorAll("video.hero__kadr, video.hero__wideo").forEach(function(v){ v.removeAttribute("autoplay"); v.pause(); });
   }
 </script>
-<script src="fizyka.js"></script>
 <script src="opinie.js"></script>
+<script src="zespol.js"></script>
 <nav class="appbar" aria-label="Skróty">
   <a class="appbar__poz" href="sklep.html">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16l-1.2 12.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8L4 7Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 7V5.6a3.5 3.5 0 0 1 7 0V7" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
